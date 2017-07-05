@@ -1,0 +1,232 @@
+{
+    "player": {
+        "/": {
+            "info": {
+                "username": {
+                    "cssPath": "div.masthead-player > h1.header-masthead",
+                    "attr": "text"
+                },
+                "avatar": {
+                    "cssPath": "div.masthead-player > img.player-portrait",
+                    "attr": "src"
+                },
+                "level": {
+                    "value": {
+                        "method": "calculateTotalLevel",
+                        "cssPath": "div.player-level"
+                    },
+                    "border": {
+                        "method": "imgUrlFromCss",
+                        "cssPath": "div.player-level",
+                        "attr": "style"
+                    },
+                    "rank": {
+                        "method": "imgUrlFromCss",
+                        "cssPath": "div.player-rank",
+                        "attr": "style"
+                    }
+                },
+                "competitive": {
+                    "skillRating": {
+                        "method": "calculateSkillRating",
+                        "cssPath": "div.masthead-player .competitive-rank > div",
+                        "attr": "text"
+                    },
+                    "rank": {
+                        "cssPath": ".competitive-rank > img",
+                        "attr": "src"
+                    }
+                }
+            },
+            "quickplay": {
+                "highlights": {
+                    "method": "getHighlights",
+                    "params": ["$", "quickplay"]
+                },
+                "heroComparison": {
+                    "method": "getHeroComparison",
+                    "params": ["$", "quickplay"]
+                },
+                "careerStats": {
+                    "method": "getCareerStats",
+                    "params": ["$", "quickplay"]
+                }
+            },
+            "competitive": {
+                "highlights": {
+                    "method": "getHighlights",
+                    "params": ["$", "competitive"]
+                },
+                "heroComparison": {
+                    "method": "getHeroComparison",
+                    "params": ["$", "competitive"]
+                },
+                "careerStats": {
+                    "method": "getCareerStats",
+                    "params": ["$", "competitive"]
+                }
+            },
+            "achievements": {
+                "method": "getAchievements",
+                "params": ["$"]
+            }
+        },
+        "/info": {
+            "username": {
+                "cssPath": "div.masthead-player > h1.header-masthead",
+                "attr": "text"
+            },
+            "avatar": {
+                "cssPath": "div.masthead-player > img.player-portrait",
+                "attr": "src"
+            },
+            "level": {
+                "value": {
+                    "method": "calculateTotalLevel",
+                    "cssPath": "div.player-level"
+                },
+                "border": {
+                    "method": "imgUrlFromCss",
+                    "cssPath": "div.player-level",
+                    "attr": "style"
+                },
+                "rank": {
+                    "method": "imgUrlFromCss",
+                    "cssPath": "div.player-rank",
+                    "attr": "style"
+                }
+            },
+            "competitive": {
+                "skillRating": {
+                    "method": "calculateSkillRating",
+                    "cssPath": "div.masthead-player .competitive-rank > div",
+                    "attr": "text"
+                },
+                "rank": {
+                    "cssPath": ".competitive-rank > img",
+                    "attr": "src"
+                }
+            }
+        },
+        "/highlights": {
+            "quickplay": {
+                "method": "getHighlights",
+                "params": ["$", "quickplay"]
+            },
+            "competitive": {
+                "method": "getHighlights",
+                "params": ["$", "competitive"]
+            }
+        },
+        "/highlights/gamemode": {
+            "method": "getHighlights",
+            "params": ["$", ":gamemode"]
+        },
+        "/heroesComparison": {
+            "quickplay": {
+                "method": "getHeroComparison",
+                "params": ["$", "quickplay"]
+            },
+            "competitive": {
+                "method": "getHeroComparison",
+                "params": ["$", "competitive"]
+            }
+        },
+        "/heroesComparison/gamemode": {
+            "method": "getHeroComparison",
+            "params": ["$", ":gamemode"]
+        },
+        "/heroesStats": {
+            "quickplay": {
+                "method": "getCareerStats",
+                "params": ["$", "quickplay"]
+            },
+            "competitive": {
+                "method": "getCareerStats",
+                "params": ["$", "competitive"]
+            }
+        },
+        "/heroesStats/gamemode": {
+            "method": "getCareerStats",
+            "params": ["$", ":gamemode"]
+        },
+        "/hero/heroname:gamemode": {
+            "method": "getHeroStats",
+            "params": ["$", ":heroname", ":gamemode"]
+        },
+        "/hero/heroname": {
+            "method": "getHeroStats",
+            "params": ["$", ":heroname"]
+        },
+        "/achievements": {
+            "method": "getAchievements",
+            "params": ["$"]
+        }
+    },
+    "heroes": {
+        "/": {
+            "method": "getHeroesList",
+            "params": ["$"]
+        },
+        "/role": {
+            "method": "getHeroesList",
+            "params": ["$", ":role"]
+        }
+    },
+    "hero": {
+        "/": {
+            "name": {
+                "cssPath": ".hero-name",
+                "attr": "text"
+            },
+            "role": {
+                "cssPath": ".hero-detail-role-name",
+                "attr": "text"
+            },
+            "difficulty": {
+                "method": "getHeroDifficulty",
+                "cssPath": ".hero-detail-difficulty"
+            },
+            "description": {
+                "cssPath": ".hero-detail-description",
+                "attr": "text"
+            },
+            "abilities": {
+                "method": "getHeroAbilities",
+                "params": ["$"]
+            },
+            "story": {
+                "biography": {
+                    "realName": {
+                        "method": "getHeroName",
+                        "cssPath": ".hero-bio .name .hero-bio-copy"
+                    },
+                    "age": {
+                        "method": "getHeroAge",
+                        "cssPath": ".hero-bio .name .hero-bio-copy"
+                    },
+                    "occupation": {
+                        "method": "getHeroOccupation",
+                        "cssPath": ".hero-bio .occupation .hero-bio-copy"
+                    },
+                    "baseOfOperations": {
+                        "method": "getHeroBaseOfOperations",
+                        "cssPath": ".hero-bio .base .hero-bio-copy"
+                    },
+                    "affiliation": {
+                        "method": "getHeroAffiliation",
+                        "cssPath": ".hero-bio .affiliation .hero-bio-copy"
+                    }
+                },
+                "catchPhrase": {
+                    "method": "getHeroCatchPhrase",
+                    "cssPath": "#story > div:nth-child(2) > p"
+                },
+                "backStory": {
+                    "method": "getHeroBackStory",
+                    "params": ["$"]
+                }
+            }
+        }
+    }
+}
