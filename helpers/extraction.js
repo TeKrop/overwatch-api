@@ -75,7 +75,7 @@ ExtractionHelpers.getCareerStats = function($, gamemode) {
         careerStats[name] = {};
 
         parent.each(function() {
-            const statTitle = ConversionHelpers.descriptionKeyFormat($(this).find('thead tr th span.stat-title').text());
+            const statTitle = ConversionHelpers.descriptionKeyFormat($(this).find('thead tr th .stat-title').text());
             careerStats[name][statTitle] = {};
             $(this).find('tbody tr').each(function() {
                 const childrenTd = $(this).children('td');
