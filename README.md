@@ -1,6 +1,6 @@
 # Overwatch API
 Unofficial Overwatch API made with Node.js (express, request, cheerio, SQLite)
-![Mockup Overwatch API](https://tekrop.fr/img/portfolio/overwatch-api.jpg)
+![Mockup Overwatch API](https://www.tekrop.fr/img/portfolio/overwatch-api.jpg)
 
 ## What is it ?
 It's a JSON API allowing you to retrieve data for players and heroes from the Overwatch game by Blizzard. All data is directly retrieved from Blizzard profile pages and heroes pages.

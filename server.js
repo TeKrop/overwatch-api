@@ -51,7 +51,7 @@ app.get('/', function(req, res) {
         'routes': {
             '/player': 'Get data about a player',
             '/heroes': 'Get data about Overwatch heroes',
-            '/hero': 'Get detailled data about a specific Overwatch hero'
+            '/hero': 'Get detailed data about a specific Overwatch hero'
         },
         'swagger': 'https://swagger-owapi.tekrop.fr/'
     });
@@ -59,7 +59,7 @@ app.get('/', function(req, res) {
 
 /**
  * Get data about a player (all, playerInfo, highlights, heroes, ...).
- * Optional params : ?platform=<pc/xbl/psn>&region=<eu/us/kr>
+ * Optional params : ?platform=<pc/xbl/psn>
  */
 app.get([
     '/player/:battletag',
@@ -74,7 +74,6 @@ app.get([
 
     // default platform
     const requestPlatform = (req.query && req.query.platform) || 'pc';
-    const isPsnOrXbl = ['psn', 'xbl'].indexOf(requestPlatform) !== -1;
 
     // if incorrect platform
     if (['pc', 'psn', 'xbl'].indexOf(requestPlatform) === -1) {
@@ -83,30 +82,11 @@ app.get([
             'message': 'Error : incorrect requested platform'
         });
     } else {
-        // change options params depending on the platform (pc or PSN/XBL)
-        if (!isPsnOrXbl) {
-            // default region
-            const requestRegion = (req.query && req.query.region) || 'eu';
-            // on pc, if incorrect region
-            if (['eu', 'us', 'kr'].indexOf(requestRegion) === -1) {
-                res.status(400).send({
-                    'statusCode' : 400,
-                    'message': 'Error : incorrect requested region'
-                });
-            } else {
-                options.params = 'pc/' + requestRegion + '/' + req.params.battletag;
-            }
-        } else {
-            options.params = requestPlatform + '/' + req.params.battletag;
-        }
-
-        // if params added (no error), send api request
-        if (options.params) {
-            // do the routing process for player
-            const routeConfig = RequestHelpers.findPlayerRouteConfig(req, routes.player);
-            // send the request
-            RequestHelpers.sendApiRequest(res, options, routeConfig, 'Player not found');
-        }
+        options.params = requestPlatform + '/' + req.params.battletag;
+        // do the routing process for player
+        const routeConfig = RequestHelpers.findPlayerRouteConfig(req, routes.player);
+        // send the request
+        RequestHelpers.sendApiRequest(res, options, routeConfig, 'Player not found');
     }
 });
 
