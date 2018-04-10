@@ -98,9 +98,9 @@ RequestHelpers.sendApiRequest = function(res, options, routeConfig, errorMessage
                     'statusCode' : 400,
                     'message': error.toString()
                 });
-            } else if (response.statusCode !== 200) {
-                res.status(response.statusCode).send({
-                    'statusCode' : response.statusCode,
+            } else if (response.statusCode !== 200 || response.body.indexOf('Profile Not Found') !== -1) {
+                res.status(404).send({
+                    'statusCode' : 404,
                     'message': errorMessage
                 });
             } else {
