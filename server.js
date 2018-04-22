@@ -82,7 +82,7 @@ app.get([
             'message': 'Error : incorrect requested platform'
         });
     } else {
-        options.params = requestPlatform + '/' + req.params.battletag;
+        options.params = requestPlatform + '/' + encodeURI(req.params.battletag);
         // do the routing process for player
         const routeConfig = RequestHelpers.findPlayerRouteConfig(req, routes.player);
         // send the request
