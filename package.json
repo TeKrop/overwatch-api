@@ -1,6 +1,6 @@
 {
   "name": "overwatch-api",
-  "version": "0.0.0",
+  "version": "1.1",
   "description": "Overwatch API",
   "main": "server.js",
   "scripts": {

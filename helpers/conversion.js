@@ -332,4 +332,19 @@ ConversionHelpers.descriptionKeyFormat = function(str) {
     return words;
 };
 
+/**
+ * Get privacy (public/private/unknown) from privacy string on the page
+ * @param  {string}  str  given string
+ * @return {string}       privacy
+ */
+ConversionHelpers.privacyFromString = function(str) {
+    let val = 'unknown';
+    if (str.match(/Public/)) {
+        val = 'public';
+    } else if (str.match(/Private/)) {
+        val = 'private';
+    }
+    return val;
+}
+
 module.exports = ConversionHelpers;

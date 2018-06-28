@@ -36,13 +36,14 @@
                         "cssPath": ".competitive-rank > img",
                         "attr": "src"
                     }
+                },
+                "privacy": {
+                    "method": "privacyFromString",
+                    "cssPath": "p.masthead-permission-level-text",
+                    "attr": "text"
                 }
             },
             "quickplay": {
-                "highlights": {
-                    "method": "getHighlights",
-                    "params": ["$", "quickplay"]
-                },
                 "heroComparison": {
                     "method": "getHeroComparison",
                     "params": ["$", "quickplay"]
@@ -53,10 +54,6 @@
                 }
             },
             "competitive": {
-                "highlights": {
-                    "method": "getHighlights",
-                    "params": ["$", "competitive"]
-                },
                 "heroComparison": {
                     "method": "getHeroComparison",
                     "params": ["$", "competitive"]
@@ -106,21 +103,12 @@
                     "cssPath": ".competitive-rank > img",
                     "attr": "src"
                 }
-            }
-        },
-        "/highlights": {
-            "quickplay": {
-                "method": "getHighlights",
-                "params": ["$", "quickplay"]
             },
-            "competitive": {
-                "method": "getHighlights",
-                "params": ["$", "competitive"]
+            "privacy": {
+                "method": "privacyFromString",
+                "cssPath": "p.masthead-permission-level-text",
+                "attr": "text"
             }
-        },
-        "/highlights/gamemode": {
-            "method": "getHighlights",
-            "params": ["$", ":gamemode"]
         },
         "/heroesComparison": {
             "quickplay": {

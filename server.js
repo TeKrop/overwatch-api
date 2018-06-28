@@ -58,7 +58,7 @@ app.get('/', function(req, res) {
 });
 
 /**
- * Get data about a player (all, playerInfo, highlights, heroes, ...).
+ * Get data about a player (all, playerInfo, heroes, ...).
  * Optional params : ?platform=<pc/xbl/psn>
  */
 app.get([

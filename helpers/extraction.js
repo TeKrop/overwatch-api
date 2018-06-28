@@ -4,23 +4,6 @@ const ConversionHelpers = require('./conversion.js');
 let ExtractionHelpers = function(){};
 
 /**
- * Get the highlights of the current player
- * @param  {object}  $         cheerio DOM object of the page
- * @param  {string}  gamemode  quickplay or competitive
- * @return {object}            object containing the formatted data
- */
-ExtractionHelpers.getHighlights = function($, gamemode) {
-    let highlights = {};
-    const cards = $('#' + gamemode + ' .highlights-section li > div.card > div.card-content');
-    cards.each(function() {
-        const description = $(this).children('.card-copy').text();
-        const value = $(this).children('.card-heading').text();
-        highlights[ConversionHelpers.descriptionKeyFormat(description)] = ConversionHelpers.valueFormat(value);
-    });
-    return highlights;
-};
-
-/**
  * Get the hero comparison on several stats (time played, ...) for the current player
  * @param  {object}  $         cheerio DOM object of the page
  * @param  {string}  gamemode  quickplay or competitive
@@ -29,7 +12,7 @@ ExtractionHelpers.getHighlights = function($, gamemode) {
 ExtractionHelpers.getHeroComparison = function($, gamemode) {
     let categories = {};
     let heroComparison = {};
-    const heroComparisonSection = $('#' + gamemode + ' .hero-comparison-section .row.column');
+    const heroComparisonSection = $('#' + gamemode + ' .career-section:first-child .row.column');
 
     // first, get the categories on the website
     const categoriesParent = heroComparisonSection.children('.m-bottom-items').find('select[data-group-id="comparisons"]');
@@ -61,7 +44,7 @@ ExtractionHelpers.getHeroComparison = function($, gamemode) {
 ExtractionHelpers.getCareerStats = function($, gamemode) {
     let heroes = {};
     let careerStats = {};
-    const careerStatsSection = $('#' + gamemode + ' .career-stats-section .row.column');
+    const careerStatsSection = $('#' + gamemode + ' .career-section:nth-child(2) .row.column');
 
     // first, get all heroes (and the "all heroes" section as well)
     const heroesParent = careerStatsSection.children('.m-bottom-items').find('select[data-group-id="stats"]');
@@ -102,7 +85,7 @@ ExtractionHelpers.getHeroStats = function($, heroName, gamemode = false) {
 
     gamemodes.forEach(function(gamemode) {
         heroStats[gamemode] = {};
-        const gamemodeSection = $('#' + gamemode + ' .career-stats-section .row.column');
+        const gamemodeSection = $('#' + gamemode + ' .career-section:nth-child(2) .row.column');
 
         // first, get the specific request hero
         const heroesParent = gamemodeSection.children('.m-bottom-items').find('select[data-group-id="stats"]').children('option');
@@ -116,7 +99,7 @@ ExtractionHelpers.getHeroStats = function($, heroName, gamemode = false) {
         // and now, extract each data about the hero
         const parent = gamemodeSection.children('.js-stats[data-category-id="' + hero + '"]').find('.column .card-stat-block table');
         parent.each(function() {
-            const statTitle = ConversionHelpers.descriptionKeyFormat($(this).find('thead tr th span.stat-title').text());
+            const statTitle = ConversionHelpers.descriptionKeyFormat($(this).find('thead tr th .stat-title').text());
             heroStats[gamemode][statTitle] = {};
             $(this).find('tbody tr').each(function() {
                 const childrenTd = $(this).children('td');
