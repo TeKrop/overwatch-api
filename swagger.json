@@ -1,0 +1,748 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Overwatch API",
+    "description": "Unofficial Overwatch API made with Node.js/Express",
+    "version": "1.1"
+  },
+  "host": "overwatch-api.tekrop.fr",
+  "schemes": [
+    "https"
+  ],
+  "basePath": "/",
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/player/{battletag}": {
+      "get": {
+        "summary": "All informations about a player",
+        "description": "The player endpoint returns all informations about an Overwatch player : info, hero comparisons, career stats, achievements, ...",
+        "parameters": [
+          {
+            "$ref": "#/parameters/PlatformParam"
+          },
+          {
+            "$ref": "#/parameters/RegionParam"
+          },
+          {
+            "$ref": "#/parameters/BattleTagParam"
+          }
+        ],
+        "tags": [
+          "Player"
+        ],
+        "responses": {
+          "200": {
+            "description": "An object with all player",
+            "schema": {
+              "$ref": "#/definitions/Player"
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/player/{battletag}/info": {
+      "get": {
+        "summary": "Basic informations about a player",
+        "description": "The player info endpoint returns basic informations about an Overwatch player : username, avatar, level, competitive rank, ...",
+        "parameters": [
+          {
+            "$ref": "#/parameters/PlatformParam"
+          },
+          {
+            "$ref": "#/parameters/RegionParam"
+          },
+          {
+            "$ref": "#/parameters/BattleTagParam"
+          }
+        ],
+        "tags": [
+          "Player"
+        ],
+        "responses": {
+          "200": {
+            "description": "An object with player informations",
+            "schema": {
+              "$ref": "#/definitions/PlayerInfo"
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/player/{battletag}/heroesComparison": {
+      "get": {
+        "summary": "Heroes comparison of a player (quickplay and competitive)",
+        "description": "The player heroes comparison endpoint returns heroes comparison informations about an Overwatch player in quickplay and competitive",
+        "parameters": [
+          {
+            "$ref": "#/parameters/PlatformParam"
+          },
+          {
+            "$ref": "#/parameters/RegionParam"
+          },
+          {
+            "$ref": "#/parameters/BattleTagParam"
+          }
+        ],
+        "tags": [
+          "Player"
+        ],
+        "responses": {
+          "200": {
+            "description": "An object with heroes comparison information",
+            "schema": {
+              "$ref": "#/definitions/HeroesComparison"
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/player/{battletag}/heroesComparison/{gamemode}": {
+      "get": {
+        "summary": "Heroes comparison of a player (quickplay and competitive)",
+        "description": "The player heroes comparison endpoint returns heroes comparison informations about an Overwatch player in quickplay and competitive",
+        "parameters": [
+          {
+            "$ref": "#/parameters/PlatformParam"
+          },
+          {
+            "$ref": "#/parameters/RegionParam"
+          },
+          {
+            "$ref": "#/parameters/BattleTagParam"
+          },
+          {
+            "$ref": "#/parameters/GamemodeParam"
+          }
+        ],
+        "tags": [
+          "Player"
+        ],
+        "responses": {
+          "200": {
+            "description": "An object with heroes comparison information",
+            "schema": {
+              "$ref": "#/definitions/GamemodeHeroesComparison"
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/player/{battletag}/heroesStats": {
+      "get": {
+        "summary": "Heroes stats of a player (quickplay and competitive)",
+        "description": "The player heroes stats endpoint returns heroes comparison informations about an Overwatch player in quickplay and competitive",
+        "parameters": [
+          {
+            "$ref": "#/parameters/PlatformParam"
+          },
+          {
+            "$ref": "#/parameters/RegionParam"
+          },
+          {
+            "$ref": "#/parameters/BattleTagParam"
+          }
+        ],
+        "tags": [
+          "Player"
+        ],
+        "responses": {
+          "200": {
+            "description": "An object with heroes stats information",
+            "schema": {
+              "$ref": "#/definitions/HeroesStats"
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/player/{battletag}/heroesStats/{gamemode}": {
+      "get": {
+        "summary": "Heroes stats of a player (quickplay or competitive)",
+        "description": "The player heroes stats endpoint returns heroes comparison informations about an Overwatch player in quickplay or competitive",
+        "parameters": [
+          {
+            "$ref": "#/parameters/PlatformParam"
+          },
+          {
+            "$ref": "#/parameters/RegionParam"
+          },
+          {
+            "$ref": "#/parameters/BattleTagParam"
+          },
+          {
+            "$ref": "#/parameters/GamemodeParam"
+          }
+        ],
+        "tags": [
+          "Player"
+        ],
+        "responses": {
+          "200": {
+            "description": "An object with heroes stats information",
+            "schema": {
+              "$ref": "#/definitions/GamemodeHeroesStats"
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/player/{battletag}/hero/{request}": {
+      "get": {
+        "summary": "Heroes stats of a Player (quickplay and competitive)",
+        "description": "The player hero stats endpoint returns hero comparison informations about an Overwatch player in quickplay and competitive",
+        "parameters": [
+          {
+            "$ref": "#/parameters/PlatformParam"
+          },
+          {
+            "$ref": "#/parameters/RegionParam"
+          },
+          {
+            "$ref": "#/parameters/BattleTagParam"
+          },
+          {
+            "name": "request",
+            "in": "path",
+            "type": "string",
+            "description": "Hero name alone or with gamemode separated with : (examples => hanzo / hanzo:quickplay)",
+            "required": true
+          }
+        ],
+        "tags": [
+          "Player"
+        ],
+        "responses": {
+          "200": {
+            "description": "An object with hero stats information",
+            "schema": {
+              "$ref": "#/definitions/HeroStats"
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/player/{battletag}/achievements": {
+      "get": {
+        "summary": "Achievements of a Player",
+        "description": "The player achievements endpoint returns achievements informations about an Overwatch player",
+        "parameters": [
+          {
+            "$ref": "#/parameters/PlatformParam"
+          },
+          {
+            "$ref": "#/parameters/RegionParam"
+          },
+          {
+            "$ref": "#/parameters/BattleTagParam"
+          }
+        ],
+        "tags": [
+          "Player"
+        ],
+        "responses": {
+          "200": {
+            "description": "An object with achievements information",
+            "schema": {
+              "$ref": "#/definitions/Achievements"
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/heroes": {
+      "get": {
+        "summary": "List of Overwatch heroes",
+        "description": "The Heroes endpoint returns basic informations about Overwatch heroes (name, role and portrait URL)",
+        "tags": [
+          "Heroes"
+        ],
+        "responses": {
+          "200": {
+            "description": "An array of heroes",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Heroes"
+              }
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/hero/{name}": {
+      "get": {
+        "summary": "Detailled informations about a specific Overwatch hero",
+        "description": "The Hero endpoint returns detailled informations about a specific hero (name, role, difficulty, description, abilities, story, ...)",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "path",
+            "type": "string",
+            "description": "Name of the hero in lowercase without accent or special character (D.Va => dva, Torbjörn => torbjorn, Lùcio => lucio)",
+            "required": true
+          }
+        ],
+        "tags": [
+          "Heroes"
+        ],
+        "responses": {
+          "200": {
+            "description": "An object containing data about the hero",
+            "schema": {
+              "$ref": "#/definitions/Hero"
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    }
+  },
+  "parameters": {
+    "PlatformParam": {
+      "name": "platform",
+      "in": "query",
+      "type": "string",
+      "description": "Platform of the player (pc/xbl/psn). Default : pc",
+      "required": false
+    },
+    "RegionParam": {
+      "name": "region",
+      "in": "query",
+      "type": "string",
+      "description": "Region of the player (eu/us/kr). Default : eu",
+      "required": false
+    },
+    "BattleTagParam": {
+      "name": "battletag",
+      "in": "path",
+      "type": "string",
+      "description": "BattleTag of the Player (with - instead of #)",
+      "required": true
+    },
+    "GamemodeParam": {
+      "name": "gamemode",
+      "in": "path",
+      "type": "string",
+      "description": "Gamemode (quickplay/competitive)",
+      "required": true
+    }
+  },
+  "definitions": {
+    "Player": {
+      "type": "object",
+      "properties": {
+        "info": {
+          "$ref": "#/definitions/PlayerInfo"
+        }
+      }
+    },
+    "PlayerInfo": {
+      "type": "object",
+      "properties": {
+        "username": {
+          "type": "string",
+          "description": "Username of the player (without BattleTag)"
+        },
+        "avatar": {
+          "type": "string",
+          "description": "URL of the player avatar"
+        },
+        "level": {
+          "type": "object",
+          "properties": {
+            "value": {
+              "type": "integer",
+              "description": "Level value of the player"
+            },
+            "border": {
+              "type": "string",
+              "description": "URL of the border image of the player (without stars)"
+            },
+            "rank": {
+              "type": "string",
+              "description": "If any, URL of the border stars image of the player"
+            }
+          }
+        },
+        "competitive": {
+          "type": "object",
+          "properties": {
+            "skillRating": {
+              "type": "integer",
+              "description": "Integer value of the skill rating of the person (from 0 to 5000)"
+            },
+            "rank": {
+              "type": "string",
+              "description": "URL of the rank image of the player"
+            }
+          }
+        },
+        "privacy": {
+            "type": "string",
+            "description": "Privacy of the player profile (public or private). If not found, value will be 'unknown'"
+        }
+      }
+    },
+    "HeroesComparison": {
+      "type": "object",
+      "properties": {
+        "quickplay": {
+          "$ref": "#/definitions/GamemodeHeroesComparison"
+        },
+        "competitive": {
+          "$ref": "#/definitions/GamemodeHeroesComparison"
+        }
+      }
+    },
+    "GamemodeHeroesComparison": {
+      "type": "object",
+      "properties": {
+        "timePlayed": {
+          "$ref": "#/definitions/HeroListValue"
+        },
+        "gamesWon": {
+          "$ref": "#/definitions/HeroListValue"
+        },
+        "winPercentage": {
+          "$ref": "#/definitions/HeroListValue"
+        },
+        "weaponAccuracy": {
+          "$ref": "#/definitions/HeroListValue"
+        },
+        "eliminationsPerLife": {
+          "$ref": "#/definitions/HeroListValue"
+        },
+        "multikillBest": {
+          "$ref": "#/definitions/HeroListValue"
+        },
+        "objectiveKillsAverage": {
+          "$ref": "#/definitions/HeroListValue"
+        }
+      }
+    },
+    "HeroesStats": {
+      "type": "object",
+      "properties": {
+        "quickplay": {
+          "$ref": "#/definitions/GamemodeHeroesStats"
+        },
+        "competitive": {
+          "$ref": "#/definitions/GamemodeHeroesStats"
+        }
+      }
+    },
+    "GamemodeHeroesStats": {
+      "type": "object",
+      "properties": {
+        "allHeroes": {
+          "$ref": "#/definitions/AllHeroesStats"
+        },
+        "heroName": {
+          "$ref": "#/definitions/HeroStats"
+        }
+      }
+    },
+    "AllHeroesStats": {
+      "type": "object",
+      "properties": {
+        "combat": {
+          "type": "object"
+        },
+        "assists": {
+          "type": "object"
+        },
+        "best": {
+          "type": "object"
+        },
+        "average": {
+          "type": "object"
+        },
+        "deaths": {
+          "type": "object"
+        },
+        "matchAwards": {
+          "type": "object"
+        },
+        "game": {
+          "type": "object"
+        },
+        "miscellaneous": {
+          "type": "object"
+        }
+      }
+    },
+    "HeroStats": {
+      "type": "object",
+      "properties": {
+        "heroSpecific": {
+          "type": "object"
+        },
+        "combat": {
+          "type": "object"
+        },
+        "assists": {
+          "type": "object"
+        },
+        "best": {
+          "type": "object"
+        },
+        "average": {
+          "type": "object"
+        },
+        "deaths": {
+          "type": "object"
+        },
+        "matchAwards": {
+          "type": "object"
+        },
+        "game": {
+          "type": "object"
+        },
+        "miscellaneous": {
+          "type": "object"
+        }
+      }
+    },
+    "Heroes": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Name of the hero"
+        },
+        "role": {
+          "type": "string",
+          "description": "Role of the hero (offense, defense, tank, support)"
+        },
+        "portrait": {
+          "type": "string",
+          "description": "URL of the portrait of the hero"
+        }
+      }
+    },
+    "Hero": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Name of the hero"
+        },
+        "role": {
+          "type": "string",
+          "description": "Role of the hero (offense, defense, tank, support)"
+        },
+        "difficulty": {
+          "type": "integer",
+          "description": "Difficulty of the hero (1 : easy, 3 : difficult)"
+        },
+        "description": {
+          "type": "string",
+          "description": "Short description of the hero"
+        },
+        "abilities": {
+          "description": "An array of heroes",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Ability"
+          }
+        },
+        "story": {
+          "type": "object",
+          "properties": {
+            "biography": {
+              "type": "object",
+              "properties": {
+                "realName": {
+                  "type": "string",
+                  "description": "Real name of the hero"
+                },
+                "age": {
+                  "type": "string",
+                  "description": "Age of the hero (string because some are not numbers)"
+                },
+                "occupation": {
+                  "type": "string",
+                  "description": "Occupation of the hero (job)"
+                },
+                "baseOfOperations": {
+                  "type": "string",
+                  "description": "Base of Operations of the hero (location)"
+                },
+                "affiliation": {
+                  "type": "string",
+                  "description": "Affiliation of the hero"
+                }
+              }
+            },
+            "catchPhrase": {
+              "type": "string",
+              "description": "Catch phrase of the hero"
+            },
+            "backStory": {
+              "type": "string",
+              "description": "Long description of the story of the hero"
+            }
+          }
+        }
+      }
+    },
+    "Achievements": {
+      "type": "object",
+      "properties": {
+        "general": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Achievement"
+          }
+        },
+        "offense": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Achievement"
+          }
+        },
+        "defense": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Achievement"
+          }
+        },
+        "tank": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Achievement"
+          }
+        },
+        "support": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Achievement"
+          }
+        },
+        "maps": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Achievement"
+          }
+        },
+        "special": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Achievement"
+          }
+        }
+      }
+    },
+    "Achievement": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string",
+          "description": "Title of the achievement"
+        },
+        "description": {
+          "type": "string",
+          "description": "Description of the achievement"
+        },
+        "image": {
+          "type": "string",
+          "description": "URL of the image of the achievement"
+        }
+      }
+    },
+    "Ability": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Name of the ability"
+        },
+        "description": {
+          "type": "string",
+          "description": "Description of the ability"
+        },
+        "icon": {
+          "type": "string",
+          "description": "Icon of the ability"
+        }
+      }
+    },
+    "Error": {
+      "type": "object",
+      "properties": {
+        "statusCode": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "HeroListValue": {
+      "type": "object",
+      "description": "List of heroes names and values (example => soldier-76: value)"
+    }
+  }
+}
