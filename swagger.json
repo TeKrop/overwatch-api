@@ -3,7 +3,7 @@
   "info": {
     "title": "Overwatch API",
     "description": "Unofficial Overwatch API made with Node.js/Express",
-    "version": "1.1"
+    "version": "1.1.1"
   },
   "host": "overwatch-api.tekrop.fr",
   "schemes": [
@@ -437,6 +437,32 @@
               "description": "URL of the rank image of the player"
             }
           }
+        },
+        "endorsement": {
+            "type": "object",
+            "properties": {
+                "level": {
+                    "type": "integer",
+                    "description": "Integer value of player endorsement level (from 1 to 5)"
+                },
+                "distribution": {
+                    "type": "object",
+                    "properties": {
+                        "shotcaller": {
+                            "type": "number",
+                            "description": "Percentage of the shotcaller part on the endorsement representation"
+                        },
+                        "teammate": {
+                            "type": "number",
+                            "description": "Percentage of the teammate part on the endorsement representation"
+                        },
+                        "sportsmanship": {
+                            "type": "number",
+                            "description": "Percentage of the sportsmanship part on the endorsement representation"
+                        }
+                    }
+                }
+            }
         },
         "privacy": {
             "type": "string",

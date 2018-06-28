@@ -28,13 +28,34 @@
                 },
                 "competitive": {
                     "skillRating": {
-                        "method": "calculateSkillRating",
+                        "method": "stringToInteger",
                         "cssPath": "div.masthead-player .competitive-rank > div",
                         "attr": "text"
                     },
                     "rank": {
                         "cssPath": ".competitive-rank > img",
                         "attr": "src"
+                    }
+                },
+                "endorsement": {
+                    "level": {
+                        "method": "stringToInteger",
+                        "cssPath": "div.masthead-player .endorsement-level > .u-center",
+                        "attr": "text"
+                    },
+                    "distribution": {
+                        "shotcaller": {
+                            "method": "calculateEndorsementPercent",
+                            "cssPath": "div.masthead-player .EndorsementIcon .EndorsementIcon-border--shotcaller"
+                        },
+                        "teammate": {
+                            "method": "calculateEndorsementPercent",
+                            "cssPath": "div.masthead-player .EndorsementIcon .EndorsementIcon-border--teammate"
+                        },
+                        "sportsmanship": {
+                            "method": "calculateEndorsementPercent",
+                            "cssPath": "div.masthead-player .EndorsementIcon .EndorsementIcon-border--sportsmanship"
+                        }
                     }
                 },
                 "privacy": {
@@ -95,13 +116,34 @@
             },
             "competitive": {
                 "skillRating": {
-                    "method": "calculateSkillRating",
+                    "method": "stringToInteger",
                     "cssPath": "div.masthead-player .competitive-rank > div",
                     "attr": "text"
                 },
                 "rank": {
                     "cssPath": ".competitive-rank > img",
                     "attr": "src"
+                }
+            },
+            "endorsement": {
+                "level": {
+                    "method": "stringToInteger",
+                    "cssPath": "div.masthead-player .endorsement-level > .u-center",
+                    "attr": "text"
+                },
+                "distribution": {
+                    "shotcaller": {
+                        "method": "calculateEndorsementPercent",
+                        "cssPath": "div.masthead-player .EndorsementIcon .EndorsementIcon-border--shotcaller"
+                    },
+                    "teammate": {
+                        "method": "calculateEndorsementPercent",
+                        "cssPath": "div.masthead-player .EndorsementIcon .EndorsementIcon-border--teammate"
+                    },
+                    "sportsmanship": {
+                        "method": "calculateEndorsementPercent",
+                        "cssPath": "div.masthead-player .EndorsementIcon .EndorsementIcon-border--sportsmanship"
+                    }
                 }
             },
             "privacy": {

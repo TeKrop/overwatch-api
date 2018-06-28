@@ -228,11 +228,11 @@ ConversionHelpers.calculateTotalLevel = function(levelDiv) {
 };
 
 /**
- * Calculate the skill rating of player
- * @param   string   divText  text of the div containing skill rating
- * @return  integer           skill rating of player
+ * Convert a string from DOM to an integer
+ * @param   string   divText  text of the div containing the string
+ * @return  integer           integer value of the string
  */
-ConversionHelpers.calculateSkillRating = function(divText) {
+ConversionHelpers.stringToInteger = function(divText) {
     return parseInt(divText);
 };
 
@@ -345,6 +345,17 @@ ConversionHelpers.privacyFromString = function(str) {
         val = 'private';
     }
     return val;
-}
+};
+
+/**
+ * Calculate endorsementPercent depending on data-value and data-total
+ * @param  {object}   levelDiv  cheerio DOM object
+ * @return {integer}            percent
+ */
+ConversionHelpers.calculateEndorsementPercent = function(endorsementDiv) {
+    const value = parseInt(endorsementDiv.data('value'));
+    const total = parseInt(endorsementDiv.data('total'));
+    return Math.round(((value / total) * 100) * 100) / 100;
+};
 
 module.exports = ConversionHelpers;
