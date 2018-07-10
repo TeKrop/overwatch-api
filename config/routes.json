@@ -56,6 +56,28 @@
                             "method": "calculateEndorsementPercent",
                             "cssPath": "div.masthead-player .EndorsementIcon .EndorsementIcon-border--sportsmanship"
                         }
+                    },
+                    "count": {
+                        "shotcaller": {
+                            "method": "stringToInteger",
+                            "cssPath": "div.masthead-player .EndorsementIcon .EndorsementIcon-border--shotcaller",
+                            "attr": "data-value"
+                        },
+                        "teammate": {
+                            "method": "stringToInteger",
+                            "cssPath": "div.masthead-player .EndorsementIcon .EndorsementIcon-border--teammate",
+                            "attr": "data-value"
+                        },
+                        "sportsmanship": {
+                            "method": "stringToInteger",
+                            "cssPath": "div.masthead-player .EndorsementIcon .EndorsementIcon-border--sportsmanship",
+                            "attr": "data-value"
+                        },
+                        "total": {
+                            "method": "stringToInteger",
+                            "cssPath": "div.masthead-player .EndorsementIcon .EndorsementIcon-border--shotcaller",
+                            "attr": "data-total"
+                        }
                     }
                 },
                 "privacy": {
@@ -143,6 +165,28 @@
                     "sportsmanship": {
                         "method": "calculateEndorsementPercent",
                         "cssPath": "div.masthead-player .EndorsementIcon .EndorsementIcon-border--sportsmanship"
+                    }
+                },
+                "count": {
+                    "shotcaller": {
+                        "method": "stringToInteger",
+                        "cssPath": "div.masthead-player .EndorsementIcon .EndorsementIcon-border--shotcaller",
+                        "attr": "data-value"
+                    },
+                    "teammate": {
+                        "method": "stringToInteger",
+                        "cssPath": "div.masthead-player .EndorsementIcon .EndorsementIcon-border--teammate",
+                        "attr": "data-value"
+                    },
+                    "sportsmanship": {
+                        "method": "stringToInteger",
+                        "cssPath": "div.masthead-player .EndorsementIcon .EndorsementIcon-border--sportsmanship",
+                        "attr": "data-value"
+                    },
+                    "total": {
+                        "method": "stringToInteger",
+                        "cssPath": "div.masthead-player .EndorsementIcon .EndorsementIcon-border--shotcaller",
+                        "attr": "data-total"
                     }
                 }
             },

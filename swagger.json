@@ -3,7 +3,7 @@
   "info": {
     "title": "Overwatch API",
     "description": "Unofficial Overwatch API made with Node.js/Express",
-    "version": "1.1.1"
+    "version": "1.1.2"
   },
   "host": "overwatch-api.tekrop.fr",
   "schemes": [
@@ -459,6 +459,27 @@
                         "sportsmanship": {
                             "type": "number",
                             "description": "Percentage of the sportsmanship part on the endorsement representation"
+                        }
+                    }
+                },
+                "count": {
+                    "type": "object",
+                    "properties": {
+                        "shotcaller": {
+                            "type": "number",
+                            "description": "Number of shotcaller endorsements the player received"
+                        },
+                        "teammate": {
+                            "type": "number",
+                            "description": "Number of teammate endorsements the player received"
+                        },
+                        "sportsmanship": {
+                            "type": "number",
+                            "description": "Number of sportsmanship endorsements the player received"
+                        },
+                        "total": {
+                            "type": "number",
+                            "description": "Total number of endorsements the player received"
                         }
                     }
                 }
