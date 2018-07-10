@@ -394,6 +394,31 @@
       "properties": {
         "info": {
           "$ref": "#/definitions/PlayerInfo"
+        },
+        "quickplay": {
+            "type": "object",
+            "properties": {
+                "heroComparison": {
+                    "$ref": "#/definitions/GamemodeHeroesComparison"
+                },
+                "careerStats": {
+                    "$ref": "#/definitions/GamemodeHeroesStats"
+                }
+            }
+        },
+        "competitive": {
+            "type": "object",
+            "properties": {
+                "heroComparison": {
+                    "$ref": "#/definitions/GamemodeHeroesComparison"
+                },
+                "careerStats": {
+                    "$ref": "#/definitions/GamemodeHeroesStats"
+                }
+            }
+        },
+        "achievements": {
+            "$ref": "#/definitions/Achievements"
         }
       }
     },
@@ -703,13 +728,7 @@
             "$ref": "#/definitions/Achievement"
           }
         },
-        "offense": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/Achievement"
-          }
-        },
-        "defense": {
+        "damage": {
           "type": "array",
           "items": {
             "$ref": "#/definitions/Achievement"
