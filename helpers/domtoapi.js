@@ -61,11 +61,14 @@ DomToApiHelpers.convertNodeAttributes = function($, node) {
         }
     }
 
-    if (method !== null) { // if method, call it and store the returned value
-        // depending on the type of params, use the correct function (direct call is faster)
-        data = (params.constructor === Array) ? method.apply(null, params) : method(params);
-    } else { // else, just store the params (if an array, store the first element)
-        data = (typeof params === 'string') ? params : params[0];
+    // it can happen when attr is not here anymore
+    if (params !== undefined) {
+        if (method !== null) { // if method, call it and store the returned value
+            // depending on the type of params, use the correct function (direct call is faster)
+            data = (params.constructor === Array) ? method.apply(null, params) : method(params);
+        } else { // else, just store the params (if an array, store the first element)
+            data = (typeof params === 'string') ? params : params[0];
+        }
     }
 
     return data;

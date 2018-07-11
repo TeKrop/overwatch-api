@@ -237,6 +237,16 @@ ConversionHelpers.stringToInteger = function(divText) {
 };
 
 /**
+ * Convert a string from DOM to a float
+ * @param   string   divText  text of the div containing the string
+ * @return  float           float value of the string
+ */
+ConversionHelpers.stringToFloat = function(divText) {
+    return parseFloat(divText);
+};
+
+
+/**
  * Get hero difficulty depending on stars on the page
  * @param  {object}   parentDiv  cheerio DOM object
  * @return {integer}             difficulty of hero
@@ -345,17 +355,6 @@ ConversionHelpers.privacyFromString = function(str) {
         val = 'private';
     }
     return val;
-};
-
-/**
- * Calculate endorsementPercent depending on data-value and data-total
- * @param  {object}   levelDiv  cheerio DOM object
- * @return {integer}            percent
- */
-ConversionHelpers.calculateEndorsementPercent = function(endorsementDiv) {
-    const value = parseInt(endorsementDiv.data('value'));
-    const total = parseInt(endorsementDiv.data('total'));
-    return Math.round(((value / total) * 100) * 100) / 100;
 };
 
 module.exports = ConversionHelpers;
