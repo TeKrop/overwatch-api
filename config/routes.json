@@ -43,6 +43,11 @@
                         "cssPath": "div.masthead-player .endorsement-level > .u-center",
                         "attr": "text"
                     },
+                    "frame": {
+                        "method": "imgUrlFromCss",
+                        "cssPath": "div.masthead-player .endorsement-level > .EndorsementIcon",
+                        "attr": "style"
+                    },
                     "distribution": {
                         "shotcaller": {
                             "method": "stringToFloat",
@@ -133,6 +138,11 @@
                     "method": "stringToInteger",
                     "cssPath": "div.masthead-player .endorsement-level > .u-center",
                     "attr": "text"
+                },
+                "frame": {
+                    "method": "imgUrlFromCss",
+                    "cssPath": "div.masthead-player .endorsement-level > .EndorsementIcon",
+                    "attr": "style"
                 },
                 "distribution": {
                     "shotcaller": {
