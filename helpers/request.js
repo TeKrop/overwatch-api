@@ -115,7 +115,7 @@ RequestHelpers.sendApiRequest = function(res, options, routeConfig, errorMessage
                 let totalTime = new Date();
 
                 // request sqlite db
-                DatabaseHelpers.getCache(requestSum, routeSum, function(err, row) {
+                DatabaseHelpers.getCache(requestSum, routeSum, async function(err, row) {
                     if (err !== null) {
                         console.log('Error when getting cache');
                         console.log(err);
@@ -138,6 +138,12 @@ RequestHelpers.sendApiRequest = function(res, options, routeConfig, errorMessage
                     } else { // else, just parse the dom with cheerio
                         console.log('Parsing the dom with cheerio...');
                         const $ = cheerio.load(body);
+
+                        // before handling the DOM, add player level into it if in routeConfig (second GET request)
+                        if (DomToApiHelpers.configContainsSpecificKey(routeConfig, ['level', 'value'])) {
+                            let playerLevel = await RequestHelpers.requestPlayerLevel(options.params);
+                            $('div.player-level').data('level', playerLevel);
+                        }
 
                         // convert the dom data to api data corresponding to the current method
                         jsonData = DomToApiHelpers.convertDomToApiData($, routeConfig);
@@ -162,5 +168,48 @@ RequestHelpers.sendApiRequest = function(res, options, routeConfig, errorMessage
         });
     }
 }
+
+/**
+ * Main method used to send request to blizzard route for player search, in order to retrieve player level
+ * @param  {object}  playerOptions  player options (platform, battletag)
+ * @return {integer}                player Overwatch level
+ */
+RequestHelpers.requestPlayerLevel = function(playerOptions) {
+    // 0 : platform, 1 : battletag
+    playerOptions = playerOptions.split('/');
+    const playerPlatform = playerOptions[0];
+    const playerBattleTag = playerOptions[1].replace('-', '#');
+
+    const options = {
+        host: 'https://playoverwatch.com',
+        path: '/fr-fr/search/account-by-name/',
+        params: playerBattleTag
+    };
+
+    console.log('Requesting ' + options.host + options.path + options.params + '...');
+
+    return new Promise(function(resolve, reject) {
+        request(options.host + options.path + options.params, function(error, response, body) {
+            if (error !== null) {
+                console.log('request error !');
+                console.log(error);
+                reject(error);
+            } else {
+                console.log('request finished !');
+                const jsonData = JSON.parse(body);
+
+                let playerData = null;
+                for (var i = jsonData.length - 1; i >= 0; i--) {
+                    if (jsonData[i].platform === playerPlatform && jsonData[i].name === playerBattleTag) {
+                        playerData = jsonData[i];
+                        break;
+                    }
+                }
+
+                resolve((playerData === null || !('level' in playerData)) ? 0 : playerData.level);
+            }
+        });
+    });
+};
 
 module.exports = RequestHelpers;

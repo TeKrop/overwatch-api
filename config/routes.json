@@ -12,7 +12,7 @@
                 },
                 "level": {
                     "value": {
-                        "method": "calculateTotalLevel",
+                        "method": "getPlayerLevel",
                         "cssPath": "div.player-level"
                     },
                     "border": {
@@ -108,7 +108,7 @@
             },
             "level": {
                 "value": {
-                    "method": "calculateTotalLevel",
+                    "method": "getPlayerLevel",
                     "cssPath": "div.player-level"
                 },
                 "border": {

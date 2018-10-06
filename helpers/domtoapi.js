@@ -74,4 +74,38 @@ DomToApiHelpers.convertNodeAttributes = function($, node) {
     return data;
 };
 
+/**
+ * Check if the given route config contains a specific list of keys in the right order
+ * @param  {object}  routeConfig   route configuration
+ * @param  {Array}   specificKeys  specific list of keys to search (keys must be in the right order)
+ * @return {boolean}               true if the route config contains the key, false otherwise
+ */
+DomToApiHelpers.configContainsSpecificKey = function(routeConfig, specificKeys) {
+    let found = false;
+
+    for (let key in routeConfig) {
+        if (found) break;
+
+        // if we found the first specific key
+        if (key === specificKeys[0]) {
+            // make a new array and remove the first element we found
+            let newKeys = specificKeys;
+            newKeys.splice(0, 1);
+
+            if (newKeys.length === 0) {
+                // if no key to search for, we found it, it's ok
+                found = true;
+            } else if (routeConfig[key] instanceof Object) {
+                // else search it recursively if it's an object
+                found = DomToApiHelpers.configContainsSpecificKey(routeConfig[key], newKeys);
+            }
+        } else if (routeConfig[key] instanceof Object) {
+            // else, if the value is an object, search recursively
+            found = DomToApiHelpers.configContainsSpecificKey(routeConfig[key], specificKeys);
+        }
+    }
+
+    return found;
+};
+
 module.exports = DomToApiHelpers;
