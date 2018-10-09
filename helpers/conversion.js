@@ -85,8 +85,8 @@ ConversionHelpers.getHeroCatchPhrase = function(textDiv) {
  */
 ConversionHelpers.valueFormat = function(str) {
     let found;
-    if ((found = str.match(/^([0-9]+)\:([0-9]+)\:([0-9]+)$/)) !== null) { // hour format hour:min:sec
-        return parseInt(found[1]*3600) + parseInt(found[2]*60) + parseInt(found[3]); // return in seconds
+    if ((found = str.match(/^([0-9]+[,]?[0-9]*?)\:([0-9]+)\:([0-9]+)$/)) !== null) { // hour format hour:min:sec
+        return parseInt((found[1].replace(/[,]/g,''))*3600) + parseInt(found[2]*60) + parseInt(found[3]); // return in seconds
     } else if ((found = str.match(/^([0-9]+)\:([0-9]+)$/)) !== null) { // hour format min:sec
         return parseInt(found[1]*60) + parseInt(found[2]); // return in seconds
     } else if (str.match(/^[0-9]+\.[0-9]+$/) !== null) { // float format
