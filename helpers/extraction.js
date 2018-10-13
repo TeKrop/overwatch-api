@@ -181,6 +181,7 @@ ExtractionHelpers.getHeroesList = function($, role = false) {
         // now loop over them and list them
         heroesContainers.each(function() {
             heroes.push({
+                key: $(this).find('.hero-portrait-detailed').data('hero-id'),
                 name: $(this).find('.portrait-title').text(),
                 portrait: $(this).find('img.portrait').attr('src')
             });
@@ -188,6 +189,7 @@ ExtractionHelpers.getHeroesList = function($, role = false) {
     } else { // else, get all heroes and their roles
         heroesContainers.each(function() {
             heroes.push({
+                key: $(this).find('.hero-portrait-detailed').data('hero-id'),
                 name: $(this).find('.portrait-title').text(),
                 role: $(this).data('groups')[0].toLowerCase(),
                 portrait: $(this).find('img.portrait').attr('src')

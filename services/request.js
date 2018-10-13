@@ -99,7 +99,7 @@ RequestService.sendApiRequest = function(res, options, routeConfig, errorMessage
             'message': 'Error : no route found for given arguments'
         });
     } else {
-        if (options.params === undefined) {
+        if (typeof options.params === 'undefined') {
             options.params = '';
         }
 
@@ -139,7 +139,7 @@ RequestService.sendApiRequest = function(res, options, routeConfig, errorMessage
                 Database.getCache(requestSum, routeSum, async function(err, row) {
                     if (err !== null) {
                         Logger.error('RequestService - Error when getting cache : ' + err);
-                    } else if (row !== undefined) {
+                    } else if (typeof row !== 'undefined') {
                         cacheIsHere = true; // we notice that the cache is here
                         if (etag === row.etag) {
                             Logger.verbose('RequestService - Cache found with correct etag !');
@@ -204,7 +204,7 @@ RequestService.requestPlayerLevel = function(playerOptions) {
     // 0 : platform, 1 : battletag
     playerOptions = playerOptions.split('/');
     const playerPlatform = playerOptions[0];
-    const playerBattleTag = playerOptions[1].replace('-', '#');
+    const playerBattleTag = decodeURI(playerOptions[1].replace('-', '#'));
 
     const options = {
         host: 'https://playoverwatch.com',
@@ -224,12 +224,22 @@ RequestService.requestPlayerLevel = function(playerOptions) {
                 Logger.info('RequestService - Request was successfull !');
                 const jsonData = JSON.parse(body);
 
+                Logger.debug('RequestService - JSON data : ' + body);
+                Logger.debug('RequestService - Player platform : ' + playerPlatform + ' and battletag : ' + playerBattleTag);
+
                 let playerData = null;
                 for (var i = jsonData.length - 1; i >= 0; i--) {
                     if (jsonData[i].platform === playerPlatform && jsonData[i].name === playerBattleTag) {
                         playerData = jsonData[i];
                         break;
                     }
+                }
+
+                if (playerData === null) {
+                    Logger.debug('RequestService - Player data not found in JSON data...');
+                } else {
+                    Logger.debug('RequestService - Player data found ! Details : ');
+                    Logger.debug(JSON.stringify(playerData));
                 }
 
                 resolve((playerData === null || !('level' in playerData)) ? 0 : playerData.level);

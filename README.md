@@ -20,7 +20,9 @@ node server.js
 Available soon...
 
 ## Live version
-You can see and use a live version of the API here : https://overwatch-api.tekrop.fr/. You can consult the official swagger as well, for details concerning routes : https://swagger-owapi.tekrop.fr/.
+You can see and use a live version of the API here : https://overwatch-api.tekrop.fr/.
+You can consult the official swagger as well, for details concerning routes : https://swagger-owapi.tekrop.fr/.
+
 If you want to use the API, and you have the possibility to host your own instance, please do it (at least for production environment), in order to not overload the live version i'm hosting.
 
 ## Development details
