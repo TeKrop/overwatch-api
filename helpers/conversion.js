@@ -18,12 +18,12 @@ ConversionHelpers.imgUrlFromCss = function(str) {
 };
 
 /**
- * Get player level in data attribute (added manually into DOM in RequestHelpers)
+ * Get player level in data attribute (added manually into DOM in RequestService)
  * @param  {object}   levelDiv  cheerio DOM object
  * @return {integer}            player level
  */
 ConversionHelpers.getPlayerLevel = function(levelDiv) {
-    return levelDiv.data('level');
+    return parseInt(levelDiv.data('level'));
 };
 
 /**

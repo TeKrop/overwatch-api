@@ -6,10 +6,11 @@ const cheerio = require('cheerio'); // create a DOM object with html code, in or
 const md5 = require('md5'); // used to calculate checksums
 
 // LOCAL
-const DomToApiHelpers = require('./domtoapi.js');
-const DatabaseHelpers = require('./database.js');
+const ParserService = require('./parser');
+const Database = require('./database');
+const Logger = require('./logger');
 
-let RequestHelpers = function(){};
+let RequestService = function(){};
 
 /**
  * Main method used to find a route config matching a request for player section (subrouting)
@@ -17,25 +18,31 @@ let RequestHelpers = function(){};
  * @param  {object}  routes     configuration file containing subroutes
  * @return {object}             route configuration matching the request
  */
-RequestHelpers.findPlayerRouteConfig = function(req, routes) {
+RequestService.findPlayerRouteConfig = function(req, routes) {
     // load correct routes config depending on user request
     let routeConfig = {};
 
     // default route
     if (!req.params.request) {
+        Logger.verbose('RequestService - "request" param not found, return default route for player route');
         routeConfig = routes['/'];
     } else {
         // search corresponding route with regexp
+        Logger.verbose('RequestService - "request" param found, searching corresponding route key in config...');
         const routeKeys = Object.keys(routes).filter(function(route) {
             return route.split('/')[1] === req.params.request;
         });
         // if we didn't find any matching route, return false
         if (routeKeys.length === 0) {
+            Logger.error('RequestService - Didn\'t find any matching route config for given request param : ');
+            Logger.error(req.params.request);
             return false;
         }
 
         // if there is an option for the request (hero name, ...), add it
         if (req.params.options) {
+            Logger.verbose('RequestService - "options" found in params, adding it to route config...');
+
             // retrieve options data and count number of options
             const optionValues = req.params.options.split(':');
             const nbOptions = optionValues.length;
@@ -51,8 +58,12 @@ RequestHelpers.findPlayerRouteConfig = function(req, routes) {
             });
             // if we didn't found any, return an error
             if (matchedRouteKey === false) {
+                Logger.error('RequestService - Invalid request "options" param for given route config :');
+                Logger.error(req.params.options);
                 return false;
             }
+
+            Logger.verbose('RequestService - Extracting corresponding route config with given option...');
 
             // now, extract optionNames from the matched routeKey
             const optionNames = matchedRouteKey.split('/')[2].split(':');
@@ -65,6 +76,7 @@ RequestHelpers.findPlayerRouteConfig = function(req, routes) {
             // reconvert into JS object
             routeConfig = JSON.parse(routeConfig);
         } else { // else, just call the method
+            Logger.verbose('RequestService - Retrieving corresponding route config...');
             routeConfig = routes['/' + req.params.request];
         }
     }
@@ -79,8 +91,9 @@ RequestHelpers.findPlayerRouteConfig = function(req, routes) {
  * @param  {object}  routeConfig    configuration of the route (format of the data to send)
  * @param  {string}  errorMessage   error message to display in case of an error
  */
-RequestHelpers.sendApiRequest = function(res, options, routeConfig, errorMessage) {
+RequestService.sendApiRequest = function(res, options, routeConfig, errorMessage) {
     if (!routeConfig) {
+        Logger.error('RequestService - No route corresponding to given arguments...');
         res.status(404).send({
             'statusCode' : 404,
             'message': 'Error : no route found for given arguments'
@@ -90,20 +103,26 @@ RequestHelpers.sendApiRequest = function(res, options, routeConfig, errorMessage
             options.params = '';
         }
 
-        console.log('Requesting ' + options.host + options.path + options.params + '...');
+        Logger.info('RequestService - Requesting ' + options.host + options.path + options.params + '...');
 
         request(options.host + options.path + options.params, function(error, response, body) {
+            Logger.verbose('RequestService - Request finished !');
+
             if (error !== null) {
+                Logger.error('RequestService - Error on requested page ! Code : ' + response.statusCode + '. Message : ' + error.toString());
                 res.status(400).send({
                     'statusCode' : 400,
                     'message': error.toString()
                 });
             } else if (response.statusCode !== 200 || response.body.indexOf('Profile Not Found') !== -1) {
+                Logger.error('RequestService - Error on requested profile, page not found ! Code : ' + response.statusCode + '. Message : ' + errorMessage);
                 res.status(404).send({
                     'statusCode' : 404,
                     'message': errorMessage
                 });
             } else {
+                Logger.info('RequestService - Page loaded successfully !');
+
                 // check if we already stored value in cache or not
                 const requestSum = md5(options.path + options.params);
                 const routeSum = md5(JSON.stringify(routeConfig));
@@ -114,18 +133,19 @@ RequestHelpers.sendApiRequest = function(res, options, routeConfig, errorMessage
                 let cacheIsHere = false;
                 let totalTime = new Date();
 
+                Logger.verbose('RequestService - Checking if we have a cached value...');
+
                 // request sqlite db
-                DatabaseHelpers.getCache(requestSum, routeSum, async function(err, row) {
+                Database.getCache(requestSum, routeSum, async function(err, row) {
                     if (err !== null) {
-                        console.log('Error when getting cache');
-                        console.log(err);
+                        Logger.error('RequestService - Error when getting cache : ' + err);
                     } else if (row !== undefined) {
                         cacheIsHere = true; // we notice that the cache is here
                         if (etag === row.etag) {
-                            console.log('Cache found with correct etag !...');
+                            Logger.verbose('RequestService - Cache found with correct etag !');
                             cacheValue = row.content;
                         } else {
-                            console.log('Cache found but outdated...');
+                            Logger.verbose('RequestService - Cache found but outdated...');
                         }
                     }
 
@@ -133,33 +153,39 @@ RequestHelpers.sendApiRequest = function(res, options, routeConfig, errorMessage
 
                     // if we found a cache value, parse it into JSON data directly
                     if (cacheValue !== null) {
-                        console.log('Just parsing the cache...');
+                        Logger.verbose('RequestService - Just parsing the cache...');
                         jsonData = JSON.parse(cacheValue);
                     } else { // else, just parse the dom with cheerio
-                        console.log('Parsing the dom with cheerio...');
+                        Logger.verbose('RequestService - Parsing the dom with cheerio...');
                         const $ = cheerio.load(body);
+                        Logger.verbose('RequestService - Parsing done !');
 
                         // before handling the DOM, add player level into it if in routeConfig (second GET request)
-                        if (DomToApiHelpers.configContainsSpecificKey(routeConfig, ['level', 'value'])) {
-                            let playerLevel = await RequestHelpers.requestPlayerLevel(options.params);
+                        if (ParserService.configContainsSpecificKey(routeConfig, ['level', 'value'])) {
+                            Logger.verbose('RequestService - Route config contains level.value key, doing another request to retrieve it...');
+                            let playerLevel = await RequestService.requestPlayerLevel(options.params);
                             $('div.player-level').data('level', playerLevel);
                         }
 
                         // convert the dom data to api data corresponding to the current method
-                        jsonData = DomToApiHelpers.convertDomToApiData($, routeConfig);
+                        Logger.verbose('RequestService - Converting DOM to api data using route configuration...');
+                        jsonData = ParserService.convertDomToApiData($, routeConfig);
+                        Logger.verbose('RequestService - DOM converted successfully !');
 
                         // insert the cache into db
                         cacheValue = JSON.stringify(jsonData);
 
                         // if cache already here, just update the cache
                         if (cacheIsHere) {
-                            DatabaseHelpers.updateCache(requestSum, routeSum, etag, cacheValue);
+                            Logger.verbose('RequestService - Cache updated with new value !');
+                            Database.updateCache(requestSum, routeSum, etag, cacheValue);
                         } else { // else if we do not have cache at all, insert new cache value
-                            DatabaseHelpers.insertInCache(requestSum, routeSum, etag, cacheValue);
+                            Logger.verbose('RequestService - Value added in cache !');
+                            Database.insertInCache(requestSum, routeSum, etag, cacheValue);
                         }
                     }
 
-                    console.log('Total time : ' + (new Date() - totalTime));
+                    Logger.info('RequestService - Total time : ' + (new Date() - totalTime) + ' ms');
 
                     // send response
                     res.json(jsonData);
@@ -174,7 +200,7 @@ RequestHelpers.sendApiRequest = function(res, options, routeConfig, errorMessage
  * @param  {object}  playerOptions  player options (platform, battletag)
  * @return {integer}                player Overwatch level
  */
-RequestHelpers.requestPlayerLevel = function(playerOptions) {
+RequestService.requestPlayerLevel = function(playerOptions) {
     // 0 : platform, 1 : battletag
     playerOptions = playerOptions.split('/');
     const playerPlatform = playerOptions[0];
@@ -182,20 +208,20 @@ RequestHelpers.requestPlayerLevel = function(playerOptions) {
 
     const options = {
         host: 'https://playoverwatch.com',
-        path: '/fr-fr/search/account-by-name/',
+        path: '/en-us/search/account-by-name/',
         params: playerBattleTag
     };
 
-    console.log('Requesting ' + options.host + options.path + options.params + '...');
+    Logger.info('RequestService - Requesting ' + options.host + options.path + options.params + '...');
 
     return new Promise(function(resolve, reject) {
         request(options.host + options.path + options.params, function(error, response, body) {
+            Logger.verbose('RequestService - Request finished !');
             if (error !== null) {
-                console.log('request error !');
-                console.log(error);
+                Logger.error('RequestService - Request error : ' + error);
                 reject(error);
             } else {
-                console.log('request finished !');
+                Logger.info('RequestService - Request was successfull !');
                 const jsonData = JSON.parse(body);
 
                 let playerData = null;
@@ -212,4 +238,4 @@ RequestHelpers.requestPlayerLevel = function(playerOptions) {
     });
 };
 
-module.exports = RequestHelpers;
+module.exports = RequestService;

@@ -1,5 +1,6 @@
 'use strict';
-const ConversionHelpers = require('./conversion.js');
+
+const ConversionHelpers = require('./conversion');
 
 let ExtractionHelpers = function(){};
 
