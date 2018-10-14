@@ -209,7 +209,7 @@ RequestService.requestPlayerLevel = function(playerOptions) {
     const options = {
         host: 'https://playoverwatch.com',
         path: '/en-us/search/account-by-name/',
-        params: playerBattleTag
+        params: encodeURI(playerBattleTag)
     };
 
     Logger.info('RequestService - Requesting ' + options.host + options.path + options.params + '...');
@@ -222,9 +222,10 @@ RequestService.requestPlayerLevel = function(playerOptions) {
                 reject(error);
             } else {
                 Logger.info('RequestService - Request was successfull !');
+                Logger.debug('RequestService - Body : ' + body);
+
                 const jsonData = JSON.parse(body);
 
-                Logger.debug('RequestService - JSON data : ' + body);
                 Logger.debug('RequestService - Player platform : ' + playerPlatform + ' and battletag : ' + playerBattleTag);
 
                 let playerData = null;
