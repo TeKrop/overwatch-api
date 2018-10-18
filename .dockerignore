@@ -1,0 +1,10 @@
+node_modules
+npm-debug.log
+logs
+
+.eslintrc.js
+.git
+.gitignore
+swagger.json
+LICENSE
+README.md
