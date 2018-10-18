@@ -10,8 +10,8 @@ In the API, all time values are returned in seconds (integer) thanks to some con
 
 ## Examples
 
-- Complete PC player profile (/player/<BattleTag>) : https://gist.github.com/TeKrop/9a09060a0701da68954936b7f963b6b8
-- Essential PC player infos (/player/<BattleTag>/info) : https://gist.github.com/TeKrop/5044b1629611c0e42b1e0a8614caf61b
+- Complete PC player profile (/player/[BattleTag]) : https://gist.github.com/TeKrop/9a09060a0701da68954936b7f963b6b8
+- Essential PC player infos (/player/[BattleTag]/info) : https://gist.github.com/TeKrop/5044b1629611c0e42b1e0a8614caf61b
 - List of Overwatch heroes (/heroes) : https://gist.github.com/TeKrop/ad793479d265b2c375eae3203488216e
 - Details about a specific Overwatch hero (/hero/wrecking-ball) : https://gist.github.com/TeKrop/8b212161b541727dcd35e05c7754644e
 
