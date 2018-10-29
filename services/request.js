@@ -109,7 +109,7 @@ RequestService.sendApiRequest = function(res, options, routeConfig, errorMessage
             Logger.verbose('RequestService - Request finished !');
 
             if (error !== null) {
-                Logger.error('RequestService - Error on requested page ! Code : ' + response.statusCode + '. Message : ' + error.toString());
+                Logger.error('RequestService - Error on requested page ! Message : ' + error.toString());
                 res.status(400).send({
                     'statusCode' : 400,
                     'message': error.toString()
