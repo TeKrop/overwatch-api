@@ -55,11 +55,13 @@ ConversionHelpers.getHeroDifficulty = function(parentDiv) {
 }
 
 ConversionHelpers.getHeroName = function(textDiv) {
-    return textDiv.text().split(',')[0].split(':')[1].trim();
+    const text = textDiv.text().split(',')[0].split(':');
+    return text.length > 1 ? text[1].trim() : text[0].trim();
 }
 
 ConversionHelpers.getHeroAge = function(textDiv) {
-    return textDiv.text().split(',')[1].split(':')[1].trim();
+    const textArray = textDiv.text().split(',');
+    return textArray[textArray.length-1].split(':')[1].trim();
 }
 
 ConversionHelpers.getHeroOccupation = function(textDiv) {
