@@ -162,9 +162,20 @@ RequestService.sendApiRequest = function(res, options, routeConfig, errorMessage
 
                         // before handling the DOM, add player level into it if in routeConfig (second GET request)
                         if (ParserService.configContainsSpecificKey(routeConfig, ['level', 'value'])) {
-                            Logger.verbose('RequestService - Route config contains level.value key, doing another request to retrieve it...');
-                            let playerLevel = await RequestService.requestPlayerLevel(options.params);
-                            $('div.player-level').data('level', playerLevel);
+                            Logger.verbose('RequestService - Route config contains level.value key, retrieving profile career id...');
+                            const careerMatches = body.match(/window\.app\.career\.init\(([0-9]+)/);
+
+                            if (careerMatches.length && parseInt(careerMatches[1]) !== 0) {
+                                Logger.verbose('RequestService - Valid career id ! Doing the player level request...');
+                                let playerLevel = await RequestService.requestPlayerLevel({
+                                    platform: options.params.split('/')[0],
+                                    battletag: decodeURI(options.params.split('/')[1].replace('-', '#')),
+                                    careerId: careerMatches[1]
+                                });
+                                $('div.player-level').data('level', playerLevel);
+                            } else {
+                                $('div.player-level').data('level', 0);
+                            }
                         }
 
                         // convert the dom data to api data corresponding to the current method
@@ -197,19 +208,14 @@ RequestService.sendApiRequest = function(res, options, routeConfig, errorMessage
 
 /**
  * Main method used to send request to blizzard route for player search, in order to retrieve player level
- * @param  {object}  playerOptions  player options (platform, battletag)
+ * @param  {object}  playerOptions  player options (platform, battletag, careerId)
  * @return {integer}                player Overwatch level
  */
 RequestService.requestPlayerLevel = function(playerOptions) {
-    // 0 : platform, 1 : battletag
-    playerOptions = playerOptions.split('/');
-    const playerPlatform = playerOptions[0];
-    const playerBattleTag = decodeURI(playerOptions[1].replace('-', '#'));
-
     const options = {
         host: 'https://playoverwatch.com',
-        path: '/en-us/search/account-by-name/',
-        params: encodeURI(playerBattleTag)
+        path: '/en-us/career/platforms/',
+        params: playerOptions.careerId
     };
 
     Logger.info('RequestService - Requesting ' + options.host + options.path + options.params + '...');
@@ -226,24 +232,26 @@ RequestService.requestPlayerLevel = function(playerOptions) {
 
                 const jsonData = JSON.parse(body);
 
-                Logger.debug('RequestService - Player platform : ' + playerPlatform + ' and battletag : ' + playerBattleTag);
+                Logger.debug('RequestService - Player platform : ' + playerOptions.platform + ' and battletag : ' + playerOptions.battletag);
 
                 let playerData = null;
                 for (var i = jsonData.length - 1; i >= 0; i--) {
-                    if (jsonData[i].platform === playerPlatform && jsonData[i].name === playerBattleTag) {
+                    if (jsonData[i].platform === playerOptions.platform && jsonData[i].name === playerOptions.battletag) {
                         playerData = jsonData[i];
                         break;
                     }
                 }
 
                 if (playerData === null) {
-                    Logger.debug('RequestService - Player data not found in JSON data...');
+                    Logger.warn('RequestService - Player data not found in JSON data with platform : ' + playerOptions.platform + ' and battletag : ' + playerOptions.battletag + '. Retrieving first one...');
+                    playerData = jsonData[0];
                 } else {
-                    Logger.debug('RequestService - Player data found ! Details : ');
-                    Logger.debug(JSON.stringify(playerData));
+                    Logger.debug('RequestService - Player data found !');
                 }
 
-                resolve((playerData === null || !('level' in playerData)) ? 0 : playerData.level);
+                Logger.debug(JSON.stringify(playerData));
+
+                resolve((playerData === null || !('playerLevel' in playerData)) ? 0 : playerData.playerLevel);
             }
         });
     });
