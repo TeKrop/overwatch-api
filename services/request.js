@@ -228,7 +228,7 @@ RequestService.requestPlayerLevel = function(playerOptions) {
                 reject(error);
             } else {
                 Logger.info('RequestService - Request was successfull !');
-                Logger.debug('RequestService - Body : ' + body);
+                Logger.verbose('RequestService - Body : ' + body);
 
                 const jsonData = JSON.parse(body);
 
@@ -244,14 +244,18 @@ RequestService.requestPlayerLevel = function(playerOptions) {
 
                 if (playerData === null) {
                     Logger.warn('RequestService - Player data not found in JSON data with platform : ' + playerOptions.platform + ' and battletag : ' + playerOptions.battletag + '. Retrieving first one...');
-                    playerData = jsonData[0];
+                    if (jsonData.length >= 1) {
+                        playerData = jsonData[0];
+                    } else {
+                        Logger.error('RequestService - jsonData is empty, body is empty or not valid JSON');
+                    }
                 } else {
                     Logger.debug('RequestService - Player data found !');
                 }
 
                 Logger.debug(JSON.stringify(playerData));
 
-                resolve((playerData === null || !('playerLevel' in playerData)) ? 0 : playerData.playerLevel);
+                resolve((typeof playerData === 'undefined' || playerData === null || !('playerLevel' in playerData)) ? 0 : playerData.playerLevel);
             }
         });
     });
