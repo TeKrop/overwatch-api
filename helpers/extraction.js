@@ -18,19 +18,19 @@ ExtractionHelpers.getHeroComparison = function($, gamemode) {
     // first, get the categories on the website
     const categoriesParent = heroComparisonSection.children('.m-bottom-items').find('select[data-group-id="comparisons"]');
     categoriesParent.children('option').each(function() {
-        categories[ConversionHelpers.descriptionKeyFormat($(this).attr('option-id'))] = $(this).attr('value').split('.')[2];
+        categories[ConversionHelpers.descriptionKeyFormat($(this).attr('option-id'))] = $(this).attr('value');
     });
 
     // then, for each category, get the data for each hero
     Object.keys(categories).forEach(function(name) {
         const hash = categories[name];
-        const parent = heroComparisonSection.children('.progress-category[data-category-id="overwatch.guid.' + hash + '"]');
+        const parent = heroComparisonSection.children('.progress-category[data-category-id="' + hash + '"]');
         heroComparison[name] = {};
 
         parent.children().each(function() {
-            const barText = $(this).children('.bar-container').children('.bar-text');
-            const heroName = ConversionHelpers.descriptionKeyFormat(barText.children('.title').text());
-            heroComparison[name][heroName] = ConversionHelpers.valueFormat(barText.children('.description').text());
+            const barText = $(this).children('.ProgressBar-container').children('.ProgressBar-textWrapper');
+            const heroName = ConversionHelpers.descriptionKeyFormat(barText.children('.ProgressBar-title').text());
+            heroComparison[name][heroName] = ConversionHelpers.valueFormat(barText.children('.ProgressBar-description').text());
         });
     });
     return heroComparison;
