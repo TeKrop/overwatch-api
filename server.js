@@ -1,7 +1,7 @@
 'use strict';
 
 // API VERSION NUMBER
-const API_VERSION = '1.2.4';
+const API_VERSION = '1.2.5';
 
 /*************** SET UP ***************/
 const fs = require('fs');                          // for configuration file

@@ -3,7 +3,7 @@
   "info": {
     "title": "Overwatch API",
     "description": "Unofficial Overwatch API made with Node.js/Express",
-    "version": "1.2.4"
+    "version": "1.2.5"
   },
   "host": "overwatch-api.tekrop.fr",
   "schemes": [
