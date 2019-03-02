@@ -11,7 +11,7 @@ ConversionHelpers.imgUrlFromCss = function(str) {
     if (str !== undefined) {
         const matches = str.match(/background-image:url\((.*)\)/);
         if (1 in matches) {
-            return matches[1];
+            return matches[1].trim();
         }
     }
     return null;
