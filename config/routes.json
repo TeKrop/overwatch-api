@@ -30,33 +30,33 @@
                     "tank": {
                         "skillRating": {
                             "method": "stringToInteger",
-                            "cssPath": "div.masthead-player .competitive-rank .competitive-rank-role:nth-child(1) div.competitive-rank-level",
+                            "cssPath": "div.masthead-player .competitive-rank .competitive-rank-tier[data-ow-tooltip-text=\"Tank Skill Rating\"] + div.competitive-rank-level",
                             "attr": "text"
                         },
                         "rank": {
-                            "cssPath": "div.masthead-player .competitive-rank .competitive-rank-role:nth-child(1) img.competitive-rank-tier-icon",
+                            "cssPath": "div.masthead-player .competitive-rank .competitive-rank-tier[data-ow-tooltip-text=\"Tank Skill Rating\"] img.competitive-rank-tier-icon",
                             "attr": "src"
                         }
                     },
                     "dps": {
                         "skillRating": {
                             "method": "stringToInteger",
-                            "cssPath": "div.masthead-player .competitive-rank .competitive-rank-role:nth-child(2) div.competitive-rank-level",
+                            "cssPath": "div.masthead-player .competitive-rank .competitive-rank-tier[data-ow-tooltip-text=\"Damage Skill Rating\"] + div.competitive-rank-level",
                             "attr": "text"
                         },
                         "rank": {
-                            "cssPath": "div.masthead-player .competitive-rank .competitive-rank-role:nth-child(2) img.competitive-rank-tier-icon",
+                            "cssPath": "div.masthead-player .competitive-rank .competitive-rank-tier[data-ow-tooltip-text=\"Damage Skill Rating\"] img.competitive-rank-tier-icon",
                             "attr": "src"
                         }
                     },
                     "support": {
                         "skillRating": {
                             "method": "stringToInteger",
-                            "cssPath": "div.masthead-player .competitive-rank .competitive-rank-role:nth-child(3) div.competitive-rank-level",
+                            "cssPath": "div.masthead-player .competitive-rank .competitive-rank-tier[data-ow-tooltip-text=\"Support Skill Rating\"] + div.competitive-rank-level",
                             "attr": "text"
                         },
                         "rank": {
-                            "cssPath": "div.masthead-player .competitive-rank .competitive-rank-role:nth-child(3) img.competitive-rank-tier-icon",
+                            "cssPath": "div.masthead-player .competitive-rank .competitive-rank-tier[data-ow-tooltip-text=\"Support Skill Rating\"] img.competitive-rank-tier-icon",
                             "attr": "src"
                         }
                     }
@@ -150,33 +150,33 @@
                 "tank": {
                     "skillRating": {
                         "method": "stringToInteger",
-                        "cssPath": "div.masthead-player .competitive-rank .competitive-rank-role:nth-child(1) div.competitive-rank-level",
+                        "cssPath": "div.masthead-player .competitive-rank .competitive-rank-tier[data-ow-tooltip-text=\"Tank Skill Rating\"] + div.competitive-rank-level",
                         "attr": "text"
                     },
                     "rank": {
-                        "cssPath": "div.masthead-player .competitive-rank .competitive-rank-role:nth-child(1) img.competitive-rank-tier-icon",
+                        "cssPath": "div.masthead-player .competitive-rank .competitive-rank-tier[data-ow-tooltip-text=\"Tank Skill Rating\"] img.competitive-rank-tier-icon",
                         "attr": "src"
                     }
                 },
                 "dps": {
                     "skillRating": {
                         "method": "stringToInteger",
-                        "cssPath": "div.masthead-player .competitive-rank .competitive-rank-role:nth-child(2) div.competitive-rank-level",
+                        "cssPath": "div.masthead-player .competitive-rank .competitive-rank-tier[data-ow-tooltip-text=\"Damage Skill Rating\"] + div.competitive-rank-level",
                         "attr": "text"
                     },
                     "rank": {
-                        "cssPath": "div.masthead-player .competitive-rank .competitive-rank-role:nth-child(2) img.competitive-rank-tier-icon",
+                        "cssPath": "div.masthead-player .competitive-rank .competitive-rank-tier[data-ow-tooltip-text=\"Damage Skill Rating\"] img.competitive-rank-tier-icon",
                         "attr": "src"
                     }
                 },
                 "support": {
                     "skillRating": {
                         "method": "stringToInteger",
-                        "cssPath": "div.masthead-player .competitive-rank .competitive-rank-role:nth-child(3) div.competitive-rank-level",
+                        "cssPath": "div.masthead-player .competitive-rank .competitive-rank-tier[data-ow-tooltip-text=\"Support Skill Rating\"] + div.competitive-rank-level",
                         "attr": "text"
                     },
                     "rank": {
-                        "cssPath": "div.masthead-player .competitive-rank .competitive-rank-role:nth-child(3) img.competitive-rank-tier-icon",
+                        "cssPath": "div.masthead-player .competitive-rank .competitive-rank-tier[data-ow-tooltip-text=\"Support Skill Rating\"] img.competitive-rank-tier-icon",
                         "attr": "src"
                     }
                 }
