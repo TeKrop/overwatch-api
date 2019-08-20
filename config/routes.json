@@ -27,20 +27,44 @@
                     }
                 },
                 "competitive": {
-                    "skillRating": {
-                        "method": "stringToInteger",
-                        "cssPath": "div.masthead-player .competitive-rank > div",
-                        "attr": "text"
+                    "tank": {
+                        "skillRating": {
+                            "method": "stringToInteger",
+                            "cssPath": "div.masthead-player .competitive-rank .competitive-rank-role:nth-child(1) div.competitive-rank-level",
+                            "attr": "text"
+                        },
+                        "rank": {
+                            "cssPath": "div.masthead-player .competitive-rank .competitive-rank-role:nth-child(1) img.competitive-rank-tier-icon",
+                            "attr": "src"
+                        }
                     },
-                    "rank": {
-                        "cssPath": ".competitive-rank > img",
-                        "attr": "src"
+                    "dps": {
+                        "skillRating": {
+                            "method": "stringToInteger",
+                            "cssPath": "div.masthead-player .competitive-rank .competitive-rank-role:nth-child(2) div.competitive-rank-level",
+                            "attr": "text"
+                        },
+                        "rank": {
+                            "cssPath": "div.masthead-player .competitive-rank .competitive-rank-role:nth-child(2) img.competitive-rank-tier-icon",
+                            "attr": "src"
+                        }
+                    },
+                    "support": {
+                        "skillRating": {
+                            "method": "stringToInteger",
+                            "cssPath": "div.masthead-player .competitive-rank .competitive-rank-role:nth-child(3) div.competitive-rank-level",
+                            "attr": "text"
+                        },
+                        "rank": {
+                            "cssPath": "div.masthead-player .competitive-rank .competitive-rank-role:nth-child(3) img.competitive-rank-tier-icon",
+                            "attr": "src"
+                        }
                     }
                 },
                 "endorsement": {
                     "level": {
                         "method": "stringToInteger",
-                        "cssPath": "div.masthead-player .endorsement-level > .u-center",
+                        "cssPath": "div.masthead-player .EndorsementIcon-tooltip > .u-center",
                         "attr": "text"
                     },
                     "frame": {
@@ -123,20 +147,44 @@
                 }
             },
             "competitive": {
-                "skillRating": {
-                    "method": "stringToInteger",
-                    "cssPath": "div.masthead-player .competitive-rank > div",
-                    "attr": "text"
+                "tank": {
+                    "skillRating": {
+                        "method": "stringToInteger",
+                        "cssPath": "div.masthead-player .competitive-rank .competitive-rank-role:nth-child(1) div.competitive-rank-level",
+                        "attr": "text"
+                    },
+                    "rank": {
+                        "cssPath": "div.masthead-player .competitive-rank .competitive-rank-role:nth-child(1) img.competitive-rank-tier-icon",
+                        "attr": "src"
+                    }
                 },
-                "rank": {
-                    "cssPath": ".competitive-rank > img",
-                    "attr": "src"
+                "dps": {
+                    "skillRating": {
+                        "method": "stringToInteger",
+                        "cssPath": "div.masthead-player .competitive-rank .competitive-rank-role:nth-child(2) div.competitive-rank-level",
+                        "attr": "text"
+                    },
+                    "rank": {
+                        "cssPath": "div.masthead-player .competitive-rank .competitive-rank-role:nth-child(2) img.competitive-rank-tier-icon",
+                        "attr": "src"
+                    }
+                },
+                "support": {
+                    "skillRating": {
+                        "method": "stringToInteger",
+                        "cssPath": "div.masthead-player .competitive-rank .competitive-rank-role:nth-child(3) div.competitive-rank-level",
+                        "attr": "text"
+                    },
+                    "rank": {
+                        "cssPath": "div.masthead-player .competitive-rank .competitive-rank-role:nth-child(3) img.competitive-rank-tier-icon",
+                        "attr": "src"
+                    }
                 }
             },
             "endorsement": {
                 "level": {
                     "method": "stringToInteger",
-                    "cssPath": "div.masthead-player .endorsement-level > .u-center",
+                    "cssPath": "div.masthead-player .EndorsementIcon-tooltip > .u-center",
                     "attr": "text"
                 },
                 "frame": {
