@@ -162,20 +162,12 @@ RequestService.sendApiRequest = function(res, options, routeConfig, errorMessage
 
                         // before handling the DOM, add player level into it if in routeConfig (second GET request)
                         if (ParserService.configContainsSpecificKey(routeConfig, ['level', 'value'])) {
-                            Logger.verbose('RequestService - Route config contains level.value key, retrieving profile career id...');
-                            const careerMatches = body.match(/window\.app\.career\.init\(([0-9]+)/);
-
-                            if (careerMatches.length && parseInt(careerMatches[1]) !== 0) {
-                                Logger.verbose('RequestService - Valid career id ! Doing the player level request...');
-                                let playerLevel = await RequestService.requestPlayerLevel({
-                                    platform: options.params.split('/')[0],
-                                    battletag: decodeURI(options.params.split('/')[1].replace('-', '#')),
-                                    careerId: careerMatches[1]
-                                });
-                                $('div.player-level').data('level', playerLevel);
-                            } else {
-                                $('div.player-level').data('level', 0);
-                            }
+                            Logger.verbose('RequestService - Route config contains level.value key... Doing the player level request...');
+                            let playerLevel = await RequestService.requestPlayerLevel({
+                                platform: options.params.split('/')[0],
+                                battletag: decodeURI(options.params.split('/')[1].replace('-', '#')),
+                            });
+                            $('div.player-level').data('level', playerLevel);
                         }
 
                         // convert the dom data to api data corresponding to the current method
@@ -208,14 +200,14 @@ RequestService.sendApiRequest = function(res, options, routeConfig, errorMessage
 
 /**
  * Main method used to send request to blizzard route for player search, in order to retrieve player level
- * @param  {object}  playerOptions  player options (platform, battletag, careerId)
+ * @param  {object}  playerOptions  player options (platform, battletag)
  * @return {integer}                player Overwatch level
  */
 RequestService.requestPlayerLevel = function(playerOptions) {
     const options = {
         host: 'https://playoverwatch.com',
-        path: '/en-us/career/platforms/',
-        params: playerOptions.careerId
+        path: '/en-us/search/account-by-name/',
+        params: playerOptions.battletag
     };
 
     Logger.info('RequestService - Requesting ' + options.host + options.path + options.params + '...');
