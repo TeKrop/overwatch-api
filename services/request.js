@@ -6,6 +6,7 @@ const cheerio = require('cheerio'); // create a DOM object with html code, in or
 const md5 = require('md5'); // used to calculate checksums
 
 // LOCAL
+const Config = require('../config/app-config');
 const ParserService = require('./parser');
 const Database = require('./database');
 const Logger = require('./logger');
@@ -205,8 +206,8 @@ RequestService.sendApiRequest = function(res, options, routeConfig, errorMessage
  */
 RequestService.requestPlayerLevel = function(playerOptions) {
     const options = {
-        host: 'https://playoverwatch.com',
-        path: '/en-us/search/account-by-name/',
+        host: Config.BLIZZARD_HOST,
+        path: Config.SEARCH_ACCOUNT_PATH,
         params: playerOptions.battletag
     };
 

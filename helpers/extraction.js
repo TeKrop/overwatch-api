@@ -50,6 +50,7 @@ ExtractionHelpers.getCareerStats = function($, gamemode) {
     // first, get all heroes (and the "all heroes" section as well)
     const heroesParent = careerStatsSection.children('.m-bottom-items').find('select[data-group-id="stats"]');
     heroesParent.children('option').each(function() {
+        if (typeof $(this).attr('option-id') === 'undefined') return; // bugfix when Blizzard is messing up with invalid DOM
         heroes[ConversionHelpers.descriptionKeyFormat($(this).attr('option-id'))] = $(this).attr('value');
     });
 

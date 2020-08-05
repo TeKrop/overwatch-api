@@ -14,4 +14,5 @@ module.exports = {
     BLIZZARD_HOST: 'https://playoverwatch.com', // blizzard base url for overwatch website
     CAREER_PATH: '/en-us/career/', // base path for player career pages
     HEROES_PATH: '/en-us/heroes/', // path for overwatch heroes page
+    SEARCH_ACCOUNT_PATH: '/en-us/search/account-by-name/' // path for searching accounts by name
 };
