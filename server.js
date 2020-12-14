@@ -1,7 +1,7 @@
 'use strict';
 
 // API VERSION NUMBER
-const API_VERSION = '1.3.0';
+const API_VERSION = '1.3.1';
 
 /*************** SET UP ***************/
 const fs = require('fs');                          // for configuration file
@@ -54,6 +54,7 @@ app.get('/', function(req, res) {
     res.status(200).send({
         'statusCode' : 200,
         'message': 'Overwatch API root path',
+        'version': API_VERSION,
         'routes': {
             '/player': 'Get data about a player',
             '/heroes': 'Get data about Overwatch heroes',
@@ -85,7 +86,7 @@ app.get([
     }
 
     // if incorrect platform
-    if (['pc', 'psn', 'xbl'].indexOf(requestPlatform) === -1) {
+    if (['pc', 'psn', 'xbl', 'nintendo-switch'].indexOf(requestPlatform) === -1) {
         Logger.error('Server - Incorrect requested platform : ' + requestPlatform);
         res.status(400).send({
             'statusCode' : 400,

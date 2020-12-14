@@ -3,7 +3,7 @@
   "info": {
     "title": "Overwatch API",
     "description": "Unofficial Overwatch API made with Node.js/Express",
-    "version": "1.3.0"
+    "version": "1.3.1"
   },
   "host": "overwatch-api.tekrop.fr",
   "schemes": [
@@ -363,7 +363,7 @@
       "name": "platform",
       "in": "query",
       "type": "string",
-      "description": "Platform of the player (pc/xbl/psn). Default : pc",
+      "description": "Platform of the player (pc/xbl/psn/nintendo-switch). Default : pc",
       "required": false
     },
     "RegionParam": {
