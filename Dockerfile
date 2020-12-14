@@ -1,4 +1,4 @@
-FROM node:8
+FROM node:15
 MAINTAINER TeKrop <contact@tekrop.fr>
 
 # app directory

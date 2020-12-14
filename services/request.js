@@ -1,7 +1,7 @@
 'use strict';
 
 // GLOBAL
-const request = require('request'); // make http calls simply (support https and follows redirects)
+const superagent = require('superagent');
 const cheerio = require('cheerio'); // create a DOM object with html code, in order to parse
 const md5 = require('md5'); // used to calculate checksums
 
@@ -106,7 +106,7 @@ RequestService.sendApiRequest = function(res, options, routeConfig, errorMessage
 
         Logger.info('RequestService - Requesting ' + options.host + options.path + options.params + '...');
 
-        request(options.host + options.path + options.params, function(error, response, body) {
+        superagent.get(options.host + options.path + options.params).end(function(error, response) {
             Logger.verbose('RequestService - Request finished !');
 
             if (error !== null) {
@@ -115,7 +115,7 @@ RequestService.sendApiRequest = function(res, options, routeConfig, errorMessage
                     'statusCode' : 400,
                     'message': error.toString()
                 });
-            } else if (response.statusCode !== 200 || response.body.indexOf('Profile Not Found') !== -1) {
+            } else if (response.statusCode !== 200 || response.text.indexOf('Profile Not Found') !== -1) {
                 Logger.error('RequestService - Error on requested profile, page not found ! Code : ' + response.statusCode + '. Message : ' + errorMessage);
                 res.status(404).send({
                     'statusCode' : 404,
@@ -158,7 +158,7 @@ RequestService.sendApiRequest = function(res, options, routeConfig, errorMessage
                         jsonData = JSON.parse(cacheValue);
                     } else { // else, just parse the dom with cheerio
                         Logger.verbose('RequestService - Parsing the dom with cheerio...');
-                        const $ = cheerio.load(body);
+                        const $ = cheerio.load(response.text);
                         Logger.verbose('RequestService - Parsing done !');
 
                         // before handling the DOM, add player level into it if in routeConfig (second GET request)
@@ -214,16 +214,16 @@ RequestService.requestPlayerLevel = function(playerOptions) {
     Logger.info('RequestService - Requesting ' + options.host + options.path + options.params + '...');
 
     return new Promise(function(resolve, reject) {
-        request(options.host + options.path + options.params, function(error, response, body) {
+        superagent(options.host + options.path + options.params).end(function(error, response) {
             Logger.verbose('RequestService - Request finished !');
             if (error !== null) {
                 Logger.error('RequestService - Request error : ' + error);
                 reject(error);
             } else {
                 Logger.info('RequestService - Request was successfull !');
-                Logger.verbose('RequestService - Body : ' + body);
+                Logger.verbose('RequestService - Body : ' + response.text);
 
-                const jsonData = JSON.parse(body);
+                const jsonData = JSON.parse(response.text);
 
                 Logger.debug('RequestService - Player platform : ' + playerOptions.platform + ' and battletag : ' + playerOptions.battletag);
 
