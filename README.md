@@ -95,7 +95,7 @@ You can consult the official swagger as well, for details concerning routes : ht
 If you want to use the API, and you have the possibility to host your own instance, please do it (at least for production environment), in order to not overload the live version i'm hosting.
 
 ## Development details
-I'm using **Node.js** along with **Express** as the main framework. In order to retrieve data from Blizzard profile pages, I'm using **superagent** along with **cheerio** to make request on the DOM. Finally, I made a simple cache system using **SQLite**, working with ETag returned by Blizzard profile pages headers.
+For code syntax and style, I'm using **Airbnb JS Style Guide** (https://github.com/airbnb/javascript). I'm using **Node.js** along with **Express** as the main framework. In order to retrieve data from Blizzard profile pages, I'm using **superagent** along with **cheerio** to make request on the DOM. Finally, I made a simple cache system using **SQLite**, working with ETag returned by Blizzard profile pages headers. For code
 
 ## Bugs and feedback
 If you find any bug, problem, or if you have any suggestion for improvements, don't hesitate to make a ticket or send me a mail (vporchet@gmail.com). As it's my first API made with Express, I probably made some mistakes and/or forgot to use some features provided by Express. If it's the case, don't hesitate to contact me as well :)
