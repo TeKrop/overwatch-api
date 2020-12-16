@@ -7,16 +7,16 @@
 [![License: MIT](https://img.shields.io/github/license/TeKrop/overwatch-api)](https://github.com/TeKrop/overwatch-api/blob/master/LICENSE)
 ![Mockup Overwatch API](https://files.tekrop.fr/overwatch-api.jpg)
 
-> Unofficial Overwatch API made with Node.js (express, superargent, cheerio, SQLite)
+> Unofficial Overwatch API made with Node.js (express, superagent, cheerio, SQLite)
 
 ## Table of contents
-* [✨ Demo](#demo)
-* [🛠️ Configuration](#configuration)
-* [💽 Installation](#installation)
-* [🐋 Docker](#docker)
-* [👨‍💻 Technical details](#technical-details)
-* [🤝 Contributing](#contributing)
-* [📝 License](#license)
+* [✨ Demo](#-demo)
+* [🛠️ Configuration](#%EF%B8%8F-configuration)
+* [💽 Installation](#-installation)
+* [🐋 Docker](#-docker)
+* [👨‍💻 Technical details](#-technical-details)
+* [🤝 Contributing](#-contributing)
+* [📝 License](#-contributing)
 
 ## ✨ [Demo](https://overwatch-api.tekrop.fr)
 
@@ -50,7 +50,7 @@ You can configure the application by modifying the `config/app-config.js` file. 
 | **`CAREER_PATH`**    | `'/en-us/career/'`                    | Path for Overwatch players career profiles on Blizzard website |
 | **`HEROES_PATH`**    | `'/en-us/heroes/'`                    | Path for Overwatch heroes pages on Blizzard website |
 
-## 💽 Classic install
+## 💽 Installation
 
 ```sh
 npm install
