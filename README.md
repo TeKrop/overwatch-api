@@ -16,7 +16,7 @@
 * [🐋 Docker](#-docker)
 * [👨‍💻 Technical details](#-technical-details)
 * [🤝 Contributing](#-contributing)
-* [📝 License](#-contributing)
+* [📝 License](#-license)
 
 ## ✨ [Demo](https://overwatch-api.tekrop.fr)
 
