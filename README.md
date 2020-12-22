@@ -110,7 +110,7 @@ Feel free to check [issues page](https://github.com/TeKrop/overwatch-api/issues)
 
 ## 📝 License
 
-Copyright © 2020 [Valentin PORCHET](https://github.com/TeKrop).
+Copyright © 2017-2020 [Valentin PORCHET](https://github.com/TeKrop).
 
 This project is [MIT](https://github.com/TeKrop/overwatch-api/blob/master/LICENSE) licensed.
 
