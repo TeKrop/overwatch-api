@@ -59,10 +59,10 @@ node server.js
 
 ## 🐋 Docker
 
-First step : pull the official image from the Docker Hub, or build image yourself
+First step : build an overwatch-api image yourself
 
 ```
-docker pull tekrop/overwatch-api
+docker build https://github.com/TeKrop/overwatch-api.git#master -t tekrop/overwatch-api:latest
 ```
 OR
 ```
