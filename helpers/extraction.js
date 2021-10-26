@@ -201,6 +201,41 @@ module.exports = {
   },
 
   /**
+   * Get weapon details for a specific hero
+   * @param  {object}  $  cheerio DOM object of the page
+   * @return {object}     object containing the formatted data
+   */
+  getHeroWeapons($) {
+    const weapons = [];
+
+    const weaponsDiv = $('.hero-detail-abilities.weapons').children('.hero-ability');
+    weaponsDiv.each(function weaponDiv() {
+      weapon = {
+        icon: $(this).find('.hero-ability-icon-container img').attr('src'),
+      }
+
+      descriptor = $(this).find('.hero-ability-descriptor')
+      if (descriptor.find('.primary-fire').length > 0) {
+        weapon['primaryFire'] = {
+          name: descriptor.find('.primary-fire .hero-ability-name').text(),
+          description: descriptor.find('.primary-fire .hero-ability-description').text(),
+        }
+        weapon['secondaryFire'] = {
+          name: descriptor.find('.secondary-fire .hero-ability-name').text(),
+          description: descriptor.find('.secondary-fire .hero-ability-description').text()
+        }
+      } else {
+        weapon['name'] = descriptor.find('> h4').text();
+        weapon['description'] = descriptor.find('> p').text();
+      }
+
+      weapons.push(weapon);
+    });
+
+    return weapons;
+  },
+
+  /**
    * Get ability list for a specific hero
    * @param  {object}  $  cheerio DOM object of the page
    * @return {object}     object containing the formatted data
@@ -208,12 +243,12 @@ module.exports = {
   getHeroAbilities($) {
     const abilities = [];
 
-    const abilitiesDiv = $('.hero-detail-wrapper').children('.hero-ability');
+    const abilitiesDiv = $('.hero-detail-abilities.abilities').children('.hero-ability');
     abilitiesDiv.each(function abilityDiv() {
       abilities.push({
         name: $(this).find('.hero-ability-descriptor > h4').text(),
         description: $(this).find('.hero-ability-descriptor > p').text(),
-        icon: $(this).find('.hero-ability-icon').attr('src'),
+        icon: $(this).find('.hero-ability-icon-container img').attr('src'),
       });
     });
 

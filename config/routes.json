@@ -285,6 +285,10 @@
                 "cssPath": ".hero-detail-description",
                 "attr": "text"
             },
+            "weapons": {
+                "method": "getHeroWeapons",
+                "params": ["$"]
+            },
             "abilities": {
                 "method": "getHeroAbilities",
                 "params": ["$"]
