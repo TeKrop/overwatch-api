@@ -3,7 +3,7 @@
   "info": {
     "title": "Overwatch API",
     "description": "Unofficial Overwatch API made with Node.js/Express",
-    "version": "1.3.2"
+    "version": "1.3.3"
   },
   "host": "overwatch-api.tekrop.fr",
   "schemes": [
@@ -658,8 +658,15 @@
           "type": "string",
           "description": "Short description of the hero"
         },
+        "weapons": {
+          "description": "An array of weapons",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Ability"
+          }
+        },
         "abilities": {
-          "description": "An array of heroes",
+          "description": "An array of abilities",
           "type": "array",
           "items": {
             "$ref": "#/definitions/Ability"
