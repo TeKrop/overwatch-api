@@ -35,6 +35,6 @@ sed -i 's#BLIZZARD_HOST:.*#BLIZZARD_HOST:"'$OW_API_BLIZZARD_HOST'",#' $OW_API_CO
 sed -i 's#CAREER_PATH:.*#CAREER_PATH:"'$OW_API_CAREER_PATH'",#' $OW_API_CONFIG_FILE
 sed -i 's#HEROES_PATH:.*#HEROES_PATH:"'$OW_API_HEROES_PATH'",#' $OW_API_CONFIG_FILE
 
-(
-    bash -c "nodemon $OW_API_VOLUME_PATH/server.js"
-)
+# move into code directory and launch the daemon
+cd $OW_API_VOLUME_PATH
+nodemon server.js
