@@ -1,8 +1,8 @@
 #!/bin/bash
 
 # main environment variables
-OW_API_CONFIG_FILE="./config/app-config.js"
-OW_API_VOLUME="."
+OW_API_VOLUME_PATH="/opt/overwatch-api"
+OW_API_CONFIG_FILE="$OW_API_VOLUME_PATH/config/app-config.js"
 
 OW_API_SERVER_PORT=${OW_API_SERVER_PORT:=8081}
 OW_API_SWAGGER_URL=${OW_API_SWAGGER_URL:="https://swagger-owapi.tekrop.fr/"}
@@ -36,8 +36,5 @@ sed -i 's#CAREER_PATH:.*#CAREER_PATH:"'$OW_API_CAREER_PATH'",#' $OW_API_CONFIG_F
 sed -i 's#HEROES_PATH:.*#HEROES_PATH:"'$OW_API_HEROES_PATH'",#' $OW_API_CONFIG_FILE
 
 (
-    bash -c "node $OW_API_VOLUME/server.js"
+    bash -c "nodemon $OW_API_VOLUME_PATH/server.js"
 )
-
-# Keep alive
-tail -f $LOG_PATH/$LOG_FILENAME

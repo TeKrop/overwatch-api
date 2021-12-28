@@ -124,7 +124,7 @@ module.exports = {
    * @param  {object}  $  cheerio DOM object of the page
    * @return {object}     object containing the formatted data
    */
-  getAchievementsfunction($) {
+  getAchievements($) {
     const categories = {};
     const achievements = {};
     const achievementsSection = $('#achievements-section .row.column');

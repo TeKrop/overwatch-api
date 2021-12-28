@@ -1,20 +1,16 @@
-FROM node:15
-MAINTAINER TeKrop <contact@tekrop.fr>
+FROM debian:bullseye
 
-# app directory
-WORKDIR /usr/src/app
-
-# copy package.json and package-lock.json
-COPY package*.json ./
-
-# install packages
-RUN npm install
-
-# copy app files
-COPY . .
-
-# expose application port
 EXPOSE 8081
 
-# execution command
-CMD ["bash", "app-start.sh"]
+CMD ["bash", "/opt/overwatch-api/app-start.sh"]
+
+RUN apt update \
+    && apt install -y --no-install-recommends apt-transport-https apt-utils ca-certificates curl \
+    && curl -fsSL https://deb.nodesource.com/setup_16.x | bash - \
+    && apt install -y --no-install-recommends nodejs build-essential git \
+    && cd /opt/ \
+    && git clone https://github.com/TeKrop/overwatch-api.git \
+    && cd overwatch-api \
+    && npm install \
+    && npm install -g nodemon \
+    && rm -rf /var/lib/{apt,dpkg,cache,log}/ /tmp/* /var/tmp/*
