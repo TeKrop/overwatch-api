@@ -37,4 +37,4 @@ sed -i 's#HEROES_PATH:.*#HEROES_PATH:"'$OW_API_HEROES_PATH'",#' $OW_API_CONFIG_F
 
 # move into code directory and launch the daemon
 cd $OW_API_VOLUME_PATH
-nodemon server.js
+node server.js

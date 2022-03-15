@@ -12,5 +12,4 @@ RUN apt update \
     && git clone https://github.com/TeKrop/overwatch-api.git \
     && cd overwatch-api \
     && npm install \
-    && npm install -g nodemon \
     && rm -rf /var/lib/{apt,dpkg,cache,log}/ /tmp/* /var/tmp/*

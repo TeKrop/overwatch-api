@@ -103,8 +103,8 @@ module.exports = {
 
         if (error !== null) {
           Logger.error(`RequestService - Error on requested page ! Message : ${error.toString()}`);
-          res.status(400).send({
-            statusCode: 400,
+          res.status(response.statusCode).send({
+            statusCode: response.statusCode,
             message: error.toString(),
           });
         } else if (response.statusCode !== 200 || response.text.indexOf('Profile Not Found') !== -1) {
@@ -156,10 +156,18 @@ module.exports = {
               // before handling the DOM, add player level if in routeConfig (second GET request)
               if (ParserService.configContainsSpecificKey(routeConfig, ['level', 'value'])) {
                 Logger.verbose('RequestService - Route config contains level.value key... Doing the player level request...');
-                const playerLevel = await this.requestPlayerLevel({
-                  platform: options.params.split('/')[0],
-                  battletag: decodeURI(options.params.split('/')[1].replace('-', '#')),
-                });
+
+                let playerLevel = $('div.player-level').first().text();
+
+                try {
+                  playerLevel = await this.requestPlayerLevel({
+                    platform: options.params.split('/')[0],
+                    battletag: decodeURI(options.params.split('/')[1].replace('-', '#')),
+                  });
+                } catch (error) {
+                  Logger.error(`RequestService - error when getting player level : ${error.toString()} !`);
+                }
+
                 $('div.player-level').data('level', playerLevel);
               }
 
@@ -209,7 +217,6 @@ module.exports = {
       superagent(options.host + options.path + options.params).end((error, response) => {
         Logger.verbose('RequestService - Request finished !');
         if (error !== null) {
-          Logger.error(`RequestService - Request error : ${error}`);
           reject(error);
         } else {
           Logger.info('RequestService - Request was successfull !');
