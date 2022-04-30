@@ -9,6 +9,13 @@
 
 > Unofficial Overwatch API made with Node.js (express, superagent, cheerio, SQLite)
 
+## ⚠️⚠️⚠️ WARNING ⚠️⚠️⚠️
+⚠️⚠️⚠️ THIS API IS NOW DEPRECATED, THERE WILL BE NO FUTURE UPDATE ⚠️⚠️⚠️
+
+If you are still using it today, please take a look at the new one (OverFast API), which is more complete and have much better responses time thanks to a specific cache system :
+
+➡️➡️➡️ https://overfast-api.tekrop.fr/ ⬅️⬅️⬅️
+
 ## Table of contents
 * [✨ Demo](#-demo)
 * [🛠️ Configuration](#%EF%B8%8F-configuration)
