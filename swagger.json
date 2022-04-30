@@ -2,7 +2,7 @@
   "swagger": "2.0",
   "info": {
     "title": "Overwatch API",
-    "description": "Unofficial Overwatch API made with Node.js/Express",
+    "description": "THIS API IS DEPRECATED. Please use the new OverFast API as soon as possible : https://overfast-api.tekrop.fr/",
     "version": "1.3.4"
   },
   "host": "overwatch-api.tekrop.fr",
