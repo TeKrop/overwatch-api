@@ -12,25 +12,17 @@
 ## ⚠️⚠️⚠️ WARNING ⚠️⚠️⚠️
 ⚠️⚠️⚠️ THIS API IS NOW DEPRECATED, THERE WILL BE NO FUTURE UPDATE ⚠️⚠️⚠️
 
-If you are still using it today, please take a look at the new one (OverFast API), which is more complete and have much better responses time thanks to a specific cache system :
+Please use my new API, which is more complete and have much better responses time thanks to a specific cache system :
 
 ➡️➡️➡️ https://overfast-api.tekrop.fr/ ⬅️⬅️⬅️
 
 ## Table of contents
-* [✨ Demo](#-demo)
 * [🛠️ Configuration](#%EF%B8%8F-configuration)
 * [💽 Installation](#-installation)
 * [🐋 Docker](#-docker)
 * [👨‍💻 Technical details](#-technical-details)
 * [🤝 Contributing](#-contributing)
 * [📝 License](#-license)
-
-## ✨ [Demo](https://overwatch-api.tekrop.fr)
-
-You can see and use a live version of the API here : https://overwatch-api.tekrop.fr/.
-You can consult the official swagger as well, for details concerning routes : https://swagger-owapi.tekrop.fr/.
-
-If you want to use the API, and you have the possibility to host your own instance, please do it (at least for production environment), in order to not overload the live version i'm hosting.
 
 ## 🛠️ Configuration
 You can configure the application by modifying the `config/app-config.js` file. Here are the current available options :
